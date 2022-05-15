@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nine shop - Log in</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/main_styles.css">
+</head>
+<body>
+    <div class="main">
+        <div id="login" class="container">
+            <h1 class="text-center fw-bold">Log In</h1>
+            <hr>
+
+            {%- for category, message in get_flashed_messages(with_categories = true) %}
+                <div class = "alert alert-danger">
+                    {{ message }}
+                </div>
+            {%- endfor %}
+
+            <form method="post">
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="user" required>
+
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <p id="noti-incorrect">Username or password incorrect.</p>
+
+                <label class="d-inline">
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    <span class="psw"><a href="#">Forgot password?</a></span>
+                </label>
+                <button type="submit" class="btn align-content-center">Login</button>
+                <label class="mt-2">
+                    Don't have an account?
+                    <a href="/signup">Create account</a>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function checkPsw() {
+            document.getElementById("noti-incorrect").style.display = "block";
+        }
+    </script>
+</body>
+</html>

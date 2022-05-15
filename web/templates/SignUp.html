@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nine Shop - Sign Up</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/main_styles.css">
+    <!--<script src="../static/js/control_login_signup.js"></script>-->
+</head>
+<body>
+    <div class="main">
+        <div id="signup" class="container">
+            <h1 class="text-center fw-bold">Sign Up</h1>
+            <hr>
+
+            {%- for category, message in get_flashed_messages(with_categories = true) %}
+                <div class = "alert alert-danger">
+                    {{ message }}
+                </div>
+            {%- endfor %}
+
+            <form method="post">
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="user" required>
+                <p class="text-secondary fst-italic">Username should have at least 8 char ...</p>
+
+                <label><b>Password</b></label>
+                <input id="pswSignup" type="password" placeholder="Enter Password" name="psw" required>
+                <p class="text-secondary fst-italic">Password should have ...</p>
+
+                <label><b>Repeat Password</b></label>
+                <input id="re-pswSignup" type="password" placeholder="Repeat Password" name="psw-repeat" required onkeyup="checkPswMatch()">
+
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me                </label>
+
+                <button type="submit" class="btn">Sign Up</button>
+
+                <label class="mt-2">
+                    Already a member?
+                    <a href="/login">Log In</a>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function checkPswMatch() {
+            var psw = document.getElementById("pswSignup");
+            var repeatPsw = document.getElementById("re-pswSignup");
+            if (psw.value != repeatPsw.value) {
+                repeatPsw.style.background = "rgba(255,200,200,0.8)";
+            } else {
+                repeatPsw.style.background = "rgba(200,255,200,0.8)";
+            }
+        }
+    </script>
+</body>
+</html>
