@@ -64,7 +64,7 @@
                 </a>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px">1</span>
             </button>
-            <button class="btn btn-light">
+            <button class="btn btn-light" type="button">
                 <a href="http://127.0.0.1:5050/signup" style="color: #000">
                     <i class="fa fa-user" style="font-size: 24px"></i>
                 </a>
@@ -91,7 +91,7 @@
                 </div>
 
                 <!-- Info product -->
-                <form method="post" action="/addcart">
+                <form>
                     <div class="py-3">
                         <h3 id="name"></h3>
                         <h4 id="price" style="color: crimson"></h4>
@@ -129,11 +129,11 @@
                         {%- endfor %}
                         <br>
                         <div class="d-inline-block mt-2">
-                            <button class="btn btn-outline-danger my-1">
+                            <button class="btn btn-outline-danger my-1" id="add-to-cart" type="button">
                                 <i class="fa fa-cart-plus"></i>
                                 Thêm vào giỏ hàng
                             </button>
-                            <button class="btn btn-danger">Mua ngay</button>
+                            <button type="button" class="btn btn-danger">Mua ngay</button>
                         </div>
                     </div>
 
@@ -192,7 +192,16 @@
     </footer>
     <div id="productID" class="d-none">{{id}}</div>
     <script type="text/javascript">
-        load(document.getElementById('productID').innerText);
+            load(document.getElementById('productID').innerText);
+
+            document.querySelector("#add-to-cart").addEventListener('click', function () {
+                addToCart(
+                    document.getElementById('productID').innerText,
+                    38,
+                    2
+                )
+            })
+
     </script>
 </body>
 </html>

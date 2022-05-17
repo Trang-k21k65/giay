@@ -66,3 +66,19 @@ function clickSize(size) {
         })
 }
 
+function addToCart(productId, size, quantity) {
+    let formData = new FormData();
+    formData.append('product_id', productId);
+    formData.append('size', size);
+    formData.append('qty', quantity);
+     fetch("http://127.0.0.1:5050/addcart", {
+         method: "POST",
+         body: formData
+     })
+        .then(function (response) {
+            console.log(response.json())
+            alert("da them")
+            return response.json();
+        })
+    // window.location("")
+}

@@ -57,7 +57,7 @@ def add_product_to_cart_service():
             ans = 'mua'
         return ans
         '''
-    return redirect(request.referrer)
+    return {"name": "data"}
 
 
 def del_product_in_cart_service():
