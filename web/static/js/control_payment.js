@@ -1,39 +1,75 @@
 
-// Thay bằng số lượng
-var numtext = 1;
-// Thay bằng giá tiền sp
-var price = "400.000";
-var p = parseFloat(price);
-// Tính tổng số tiền sp
 function totalPay() {
-    document.getElementById('quantity').innerText = numtext;
-    document.getElementById('tPrice').innerText = price + "đ";
-    var pLenght = document.getElementById('pay').rows.length - 1;
-    var tp = 0;
-    for (var i = 0; i < pLenght; i++) {
-            var y = document.getElementById('pay').rows[i].cells.item(1).innerText;
-            tp += parseFloat(y);
-    }
-    document.getElementById('pay').rows[pLenght].cells.item(1).innerText = tp.toLocaleString("vi") + ".000đ";
+    var f = document.getElementById('fee').innerHTML;
+    fetch("http://127.0.0.1:5050/cart")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (cart) {
+            var s = 0;
+            for (let i of cart) {
+                s += i.quantityOrdered*i.sellPrice;
+            }
+            document.getElementById('sum').innerHTML = s.toLocaleString("vi") + "đ";
+            document.getElementById('totalprice').innerHTML = (s + parseFloat(f)*1000).toLocaleString("vi") + "đ";
+        })
+}
+
+function loadItems() {
+    fetch("http://127.0.0.1:5050/cart")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (cart) {
+            var s = '';
+            for (let i of cart) {
+                s +='<div class="cart-item"><div class="cart-img">' + 
+                    '<img class="card-img" src="' + i.product.image + '" alt="' + i.product.id + ' width:"100%;"/></div>' +  
+                    '<div class="item-detail"><p id="name" style="line-height: 0.3;">'+ i.product.name + '</p>' +
+                    'Size: ' + i.size + '<br>Giá thành: ' + i.sellPrice.toLocaleString("vi") + 'đ' + '</p></div>' +
+                    '<div class="cart-quantity"><div class="row gx-0">' + 
+                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" onclick="clickChoose(0)">-</button></div>' +
+                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" id="quantity">' + i.quantityOrdered + '</button></div>' +
+                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" onclick="clickChoose(1)">+</button></div>' +
+                    '</div></div><div class="cart-price"><p id="tPrice">' + (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + 'đ</p></div></div>'; 
+            }
+            document.getElementById('item').innerHTML = s;
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
 }
 
 function clickChoose(type) {
-    numtext = document.getElementById('quantity').innerText;
-    var num = parseInt(numtext);
-    if (type == 0) {
-        if (num > 0) {
-            num--;
-        } else {
-            num = 0;
-        }
-    } else {
-        if (num < 5) {
-            num++;
-        } else {
-            num = 5;
-        }
-    }
-    let s = (p*num).toLocaleString("vi") + ".000";
-    document.getElementById('tPrice').innerText = s + "đ";
-    document.getElementById('quantity').innerText = num;
+    fetch("http://127.0.0.1:5050/cart")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (cart) {
+            for (let i of cart) {
+                if (i.product.name == document.getElementById('name').innerHTML) {
+                    if (type == 0) {
+                        if (i.quantityOrdered > 1) {
+                            
+                        } else if (i.quantityOrdered == 1) {
+                            var ans = confirm('Bạn chắc chắn muốn xóa sản phẩm khỏi giỏ hàng?');
+                            if (ans) {
+                                
+                            } else {
+                                
+                            }
+                        }
+                    } else {
+                        if (i.quantityOrdered + 1 < 5) {
+                            
+                        } else {
+                            
+                        }
+                    }
+                    document.getElementById('tPrice').innerHTML = (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + "đ";
+                    document.getElementById('quantity').innerHTML = i.quantityOrdered;
+                }
+            }
+            
+        })
 }

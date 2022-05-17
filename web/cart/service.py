@@ -57,7 +57,7 @@ def add_product_to_cart_service():
             ans = 'mua'
         return ans
         '''
-    return "dsf"
+    return redirect(request.referrer)
 
 
 def del_product_in_cart_service():

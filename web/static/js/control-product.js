@@ -22,14 +22,8 @@ function load(id) {
         })
         .then(function (product) {
             let p = product[0];
-            let images = p.image.split('\n');
-            document.getElementById('image-product').src = images[0];
-
-            for (let i = 0; i < images.length; i++) {
-                document.getElementById('image' + i).src = images[i];
-                document.getElementById('image' + i).style.display = 'block';
-            }
-
+            document.getElementById('image-product').src = p.image;
+            document.getElementById('image1').src = p.image;
             document.getElementById('name').innerText = p.name;
             document.getElementById('price').innerHTML = p.sellPrice.toLocaleString("vi") + '<ins>đ</ins>';
 
@@ -72,6 +66,3 @@ function clickSize(size) {
         })
 }
 
-function addToCart(type) {
-    console.log("Hello")
-}

@@ -21,12 +21,14 @@
 
             <form method="post">
                 <label><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="user" required>
-                <p class="text-secondary fst-italic">Username should have at least 8 char ...</p>
+                <input type="text" placeholder="Enter Username" name="user"
+                       pattern="(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d!]{8,30}"
+                       title="Contain 8-30 characters: letters, at least 1 number" required>
 
                 <label><b>Password</b></label>
-                <input id="pswSignup" type="password" placeholder="Enter Password" name="psw" required>
-                <p class="text-secondary fst-italic">Password should have ...</p>
+                <input id="pswSignup" type="password" placeholder="Enter Password" name="psw"
+                       pattern="(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,15}"
+                       title="Contains 8-15 characters: letters, at least 1 number" required onkeyup="checkPswMatch()">
 
                 <label><b>Repeat Password</b></label>
                 <input id="re-pswSignup" type="password" placeholder="Repeat Password" name="psw-repeat" required onkeyup="checkPswMatch()">

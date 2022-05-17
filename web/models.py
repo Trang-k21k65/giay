@@ -16,7 +16,7 @@ class User(db.Model):
     orders = relationship('Order', backref='user', lazy=True)
 
     def __str__(self):
-        return f'{self.id} {self.username} {self.fullname} {self.password} {self.address} {self.phone}'
+        return self.username
 
     def set_psw(self, password):
         self.password = generate_password_hash(password=password)
@@ -29,8 +29,8 @@ class Order(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     status = Column(String(20), default='Đang mua')  # Gồm: Đang mua, Đặt hàng, Xác nhận, Đang giao, Đã nhận, Hủy đơn
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
-    # orderDate = Column(DateTime(timezone=True), default=func.now())
-    # shippedDate = Column(DateTime(timezone=True), default=func.now())
+    orderDate = Column(DateTime(timezone=True), default=func.now())
+    shippedDate = Column(DateTime(timezone=True), default=func.now())
     order_details = relationship('Orderdetail', backref='order', lazy=True)
 
     def __str__(self):
@@ -44,8 +44,8 @@ class Product(db.Model):
     buyPrice = Column(Integer, nullable=False)
     sellPrice = Column(Integer, nullable=False)
     tag = Column(Integer)
-    importDate = Column(DateTime)
-    # importDate = Column(DateTime(timezone=True), default=func.now())
+    #importDate = Column(DateTime)
+    importDate = Column(DateTime(timezone=True), default=func.now())
     description = Column(Text)
     image = Column(Text)
     consume = Column(Integer, default=3)  # luong tieu thu

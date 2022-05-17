@@ -43,42 +43,6 @@ def login():
     return render_template('Login.html')
 
 
-@auth.route('/user', methods=["POST", "GET"])
-def user():
-    if 'user' in session:
-        user_id = session.get('user')
-        user_detail = User.query.filter_by(id=user_id).first()
-        user_phone = request.form.get("phone")
-        user_address = request.form.get("address")
-        if request.method == "POST":
-            session['phone'] = user_phone
-            user_detail.phone = user_phone
-            session['address'] = user_address
-            user_detail.address = user_address
-            db.session.commit()
-            flash(f'Information change complete!', 'success')
-        return render_template('User.html', user_detail=user_detail)
-
-
-@auth.route("/change-password", methods=["POST", "GET"])
-def changepassword():
-    if 'user' in session:
-        user_name = session.get('user')
-        user_detail = User.query.filter_by(username=user_name).first()
-        user_old_password = request.form.get("oldpassword")
-        user_new_password = request.form.get("newpassword")
-        if request.method == "POST":
-            if user_detail is None or not user_detail.check_psw(user_old_password):
-                flash('Invalid username or password', category='error')
-                return redirect(url_for('change-password'))
-            else:
-                session['oldpassword'] = user_new_password
-                user_detail.password = user_new_password
-                db.session.commit()
-        flash(f'Password change complete!', 'success')
-        return f"<h1>{user_detail}</h1>"
-
-
 @auth.route('/logout')
 def logout():
     session.pop('user', None)

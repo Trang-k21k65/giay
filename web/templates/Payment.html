@@ -12,7 +12,7 @@
 
 </head>
 <body onload="totalPay()">
-    <!-- Navbar -->
+    <!-- Menu -->
     <nav class="navbar navbar-expand-lg bg-light fixed-top p-2">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <i class="fa fa-bars" style="font-size: 24px"></i>
@@ -48,8 +48,8 @@
                         let inputSearch = document.getElementById('input-search');
                         inputSearch.addEventListener("keydown", function (e) {
                             if (e.key == 'Enter') {
-                                window.open("http://127.0.0.1:5050/search/" + document.getElementById('input-search').value);
                                 window.close();
+                                window.open("http://127.0.0.1:5050/search/" + document.getElementById('input-search').value);
                             }
                         })
                         changeInputSearch();
@@ -59,113 +59,50 @@
         </div>
         <div>
             <button class="btn btn-light position-relative">
-                <i class="fa fa-shopping-cart" style="font-size: 24px"></i>
+                <a href="http://127.0.0.1:5050/cart/products" style="color: #000">
+                    <i class="fa fa-shopping-cart" style="font-size: 24px"></i>
+                </a>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px">1</span>
             </button>
-
-            <button class="btn btn-light" type="button" id="user" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-user" style="font-size: 24px"></i>
+            <button class="btn btn-light">
+                <a href="http://127.0.0.1:5050/signup" style="color: #000">
+                    <i class="fa fa-user" style="font-size: 24px"></i>
+                </a>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sort">
-                <li><a class="dropdown-item" href="http://127.0.0.1:5050/user">Profile</a></li>
-                <li><a class="dropdown-item" href="http://127.0.0.1:5050/logout">Logout</a></li>
-            </ul>
         </div>
     </nav>
 
-    <!-- Carousel -->
-    <div id="carouselExampleCaptions" class="carousel slide" style="padding-top: 60px" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="3000">
-          <img src="../static/image/banner.png" class="d-block w-100" alt="banner">
+    <!-- Banner -->
+    <div class="row align-content-start pb-5">
+        <div class="carousel-inner carousel-item active">
+            <img src="https://x9shop.vn/wp-content/uploads/2020/08/banner111-1400x474.jpg" class="d-block w-100" alt="banner">
         </div>
-        <div class="carousel-item" data-bs-interval="3000">
-          <img src="../static/image/banner1.png" class="d-block w-100" alt="banner">
-        </div>
-        <div class="carousel-item" data-bs-interval="3000">
-          <img src="../static/image/banner2.png" class="d-block w-100" alt="banner">
-        </div>
-          <div class="carousel-item" data-bs-interval="3000">
-          <img src="../static/image/banner3.jpg" class="d-block w-100" alt="banner">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-
-    <div class="nav justify-content-center mt-1 mb-5 py-4 cart-menu">
-        <li class="nav-item active">
-            <a class="nav-link ms-5 hvr-underline-from-left" onclick="clickCart()">Payment</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link ms-5 hvr-underline-from-left" onclick="clickFollowOrders()">Follow Orders</a>
-        </li>
     </div>
     <!--Introduction of products-->
     <div class="container item-border my-4">
-        <div class="row gx-0 row-cols-4" style="font-size: 19px">
-            <div class="col-3 ps-3">
-                <p><b>Products</b></p>
+        <div class="row gx-0 row-cols-4 mb-3" style="font-size: 20px; border-bottom: 2px solid #cccccc">
+            <div class="col-2 ps-4">
+                <b>Products</b>
             </div>
-            <div class="col-5">
-                <p><b>Details</b></p>
+            <div class="col-5 ps-4">
+                <b>Details</b>
             </div>
-            <div class="col-3">
-                <p><b>Quantity</b></p>
+            <div class="col-3 ps-5">
+                <b>Quantity</b>
             </div>
-            <div class="col-1">
-                <p><b>Total</b></p>
+            <div class="col-2">
+                <b>Total Price</b>
             </div>
         </div>
-        <div class="row gx-0 px-0 row-cols-4 border">
-            <div class="col-2">
-                <img class="card-img-top mt-1 mb-1 mx-1" src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5046.jpg" alt="Nike Air Force 1 Full Trắng">
-            </div>
-            <div class="col-5 align-self-center">
-                <p style="font-size: 18px;padding-left: 20px;">
-                   <br>Giày thể thao Sneaker màu Trắng
-                   <br>Chất liệu: da trơn
-                   <br>Size: 47
-                   <br>Giá thành: 120.000đ 
-                </p>
-            </div>
-            <div class="col-3 pt-3 ps-2 pe-2">
-                <div class="row gx-0">
-                    <div class="col mt-5 border">
-                        <button class="btn btn-light" type="button" style="width: 100%;" onclick="clickChoose(0)">-</button>
-                    </div>
-                    <div class="col mt-5 border">
-                        <button class="btn btn-light" type="button" style="width: 100%;" id="quantity"></button>
-                    </div>
-                    <div class="col mt-5 border">
-                        <button class="btn btn-light" type="button" style="width: 100%;" onclick="clickChoose(1)">+</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 align-self-center ps-5">
-                <p style="font-size: 20px;" id="tPrice"><b>400.000đ</b></p>
-            </div>
+        <div id="item" class="row align-content-center row-cols-1">
         </div>
     </div>
     <!--Details of payment-->
     <div class="container pt-2 pb-4">
         <div class="row my-5 align-content-center row-cols-2">
             <div class="col">
-                <h2 class="card-title" style="padding-top:30px;padding-bottom:30px;">Thông tin liên hệ</h2>
-                <table class="table">
+                <h2 class="card-title" style="padding-top:50px;padding-bottom:50px;">Thông tin liên hệ</h2>
+                <table class="table" style="font-size:18px;">
                     <tr>
                         <th>Họ và tên</th>
                         <td>
@@ -179,41 +116,36 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Địa chỉ email</th>
-                        <td>
-                            <input type="text" style="border:0px; width:100%;" placeholder="Email của bạn" id="email">
-                        </td>
-                    </tr>
-                    <tr>
                         <th>Địa chỉ</th>
                         <td>
-                            <input type="text" style="border:0px; width:100%;" placeholder="Số 4, ngõ 20, Láng Thượng, Đống Đa, Hà Nội" id="address">
+                            <input type="text" style="border:0px; width:100%;" placeholder="Số 4, ngõ 20, Láng Thượng, Đống Đa, HN" id="address">
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="col" style="background-color:#fef8f8">
-                <h2 class="card-title" style="padding-top:30px;padding-bottom:30px;">Cộng Giỏ Hàng</h2>
-                <table class="table" id="pay">
+                <h2 class="card-title" style="padding-top:50px;padding-bottom:50px;">Cộng Giỏ Hàng</h2>
+                <table class="table" style="font-size:18px;" id="pay">
                     <tr>
                         <th>Tạm Tính</th>
-                        <td style="text-align: right;">5500.000đ</td>
+                        <td id="sum" style="text-align: right;"></td>
                     </tr>
                     <tr>
                         <th>Phí Ship</th>
-                        <td style="text-align: right;">15.000đ</td>
+                        <td id="fee" style="text-align: right;">15.000đ</td>
                     </tr>
                     <tr>
                         <th>Tổng Cộng</th>
-                        <td style="text-align: right;">550.000đ</td>
+                        <td id="totalprice" style="text-align: right;"></td>
                     </tr>
                 </table>
-                <div class="center-div mt-1">
-                    <a href="#" class="btn btn-choose">THANH TOÁN</a>
+                <div style="text-align: center">
+                    <a href="http://127.0.0.1:5500/shoes/web/templates/Success.html" class="btn btn-choose">THANH TOÁN</a>
                 </div>
-                <div class="center-div">
+                <div style="text-align: center">
                     <a href="http://127.0.0.1:5050" class="btn btn-choose">MUA THÊM SẢN PHẨM KHÁC</a>
                 </div>
+                <br>
             </div>
         </div>
     </div>
@@ -250,6 +182,9 @@
             </div>
         </div>
     </footer>
+    <script>
+        loadItems();
+    </script>
     
 </body>
 </html>

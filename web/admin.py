@@ -25,10 +25,11 @@ class ClassifyView(AdminView):
     form_extra_fields = {
         'pr_id': sqla.fields.QuerySelectField(
             label='pr_id',
-            query_factory=lambda: Product.query.all(),
+            query_factory=lambda: db.session.query(Product.id).all(),
             widget=Select2Widget()
         )
     }
+    # get_pk_value(Product)
     column_list = ('pr_id', 'id')
 
 
