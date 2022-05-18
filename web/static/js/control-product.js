@@ -31,7 +31,7 @@ function load(id) {
             let total = 0;
             for (let s of p.sizes) {
                 size_inner_html += '<input type="radio" id="size' + s.size + '" class="btn-check" name="size" value="' + s.size + '" onclick="clickSize(' + s.size + ')">' +
-                                    '<label class="btn btn-outline-dark my-1 me-1" for="size' + s.size + '">' + s.size + '</label>';
+                    '<label class="btn btn-outline-dark my-1 me-1" for="size' + s.size + '">' + s.size + '</label>';
                 total += s.quantityInStock;
             }
             document.getElementById('size').innerHTML = size_inner_html;
@@ -58,7 +58,7 @@ function clickSize(size) {
             for (let s of p.sizes) {
                 if (s.size == size) {
                     document.getElementById('quantityInStock').innerText = s.quantityInStock + ' sản phẩm có sẵn';
-                    if (document.getElementById('number').value  > s.quantityInStock) {
+                    if (document.getElementById('number').value > s.quantityInStock) {
                         document.getElementById('number').value = s.quantityInStock;
                     }
                 }
@@ -71,14 +71,14 @@ function addToCart(productId, size, quantity) {
     formData.append('product_id', productId);
     formData.append('size', size);
     formData.append('qty', quantity);
-     fetch("http://127.0.0.1:5050/addcart", {
-         method: "POST",
-         body: formData
-     })
+    fetch("http://127.0.0.1:5050/addcart", {
+        method: "POST",
+        body: formData
+    })
         .then(function (response) {
             console.log(response.json())
             alert("da them")
             return response.json();
         })
-    // window.location("")
+    // window.location
 }

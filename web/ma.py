@@ -19,13 +19,18 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
     sizes = ma.Nested(SizeSchema, many=True)
 
 
-class OrderSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Order
-
-
-class OrderdetailsSchema(ma.SQLAlchemyAutoSchema):
+class OrderdetailSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Orderdetail
 
     product = ma.Nested(ProductSchema)
+
+
+class OrderSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Order
+
+    order_details = ma.Nested(OrderdetailSchema, many=True)
+
+
+

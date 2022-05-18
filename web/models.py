@@ -44,7 +44,6 @@ class Product(db.Model):
     buyPrice = Column(Integer, nullable=False)
     sellPrice = Column(Integer, nullable=False)
     tag = Column(Integer)
-    #importDate = Column(DateTime)
     importDate = Column(DateTime(timezone=True), default=func.now())
     description = Column(Text)
     image = Column(Text)

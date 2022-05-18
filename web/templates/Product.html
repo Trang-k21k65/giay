@@ -6,202 +6,217 @@
     <link rel="shortcut icon" type="image/png" href="../static/image/favicon.png">
     <link rel="stylesheet" href="../static/css/bootstrap.css">
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../static/js/control-product.js"></script>
 
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-light fixed-top p-2">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <i class="fa fa-bars" style="font-size: 24px"></i>
-        </button>
-        <a class="navbar-brand" href="http://127.0.0.1:5050/">
-            <img src="../static/image/logo.png" alt="Logo" style="width: 100px">
-        </a>
-        <div id="mynavbar" class="collapse navbar-collapse">
-            <ul class="navbar-nav m-lg-auto">
-                <li class="nav-item active">
-                    <a href="http://127.0.0.1:5050/home/man" id="man" class="nav-link ms-5 hvr-underline-from-left" onclick="clickNavItem('Man')">Man</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="http://127.0.0.1:5050/home/woman" id="woman" class="nav-link ms-5 hvr-underline-from-left" onclick="clickNavItem('Woman')">Woman</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="http://127.0.0.1:5050/home/fashion" id="fashion" class="nav-link ms-5 hvr-underline-from-left" onclick="clickNavItem('Fashion')">Fashion</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="http://127.0.0.1:5050/home/sport" id="sport" class="nav-link ms-5 hvr-underline-from-left" onclick="clickNavItem('Sport')">Sport</a>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input id="input-search" class="form-control me-2" type="text" placeholder="Search" onkeyup="changeInputSearch()">
-                <div class="btn btn-light me-2" id="search">
-                    <script>
-                        function changeInputSearch() {
-                            let innerSearch = '<a id="a" href="http://127.0.0.1:5050/search/' + document.getElementById('input-search').value + '">' +
-                                '<i class="fa fa-search text-black" style="font-size: 24px"></i>' +
-                                '</a>'
-                            document.getElementById('search').innerHTML = innerSearch;
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-light fixed-top p-2">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <i class="fa fa-bars" style="font-size: 24px"></i>
+    </button>
+    <a class="navbar-brand" href="http://127.0.0.1:5050/">
+        <img src="../static/image/logo.png" alt="Logo" style="width: 100px">
+    </a>
+    <div id="mynavbar" class="collapse navbar-collapse">
+        <ul class="navbar-nav m-lg-auto">
+            <li class="nav-item active">
+                <a href="http://127.0.0.1:5050/home/man" id="man" class="nav-link ms-5 hvr-underline-from-left"
+                   onclick="clickNavItem('Man')">Man</a>
+            </li>
+            <li class="nav-item active">
+                <a href="http://127.0.0.1:5050/home/woman" id="woman" class="nav-link ms-5 hvr-underline-from-left"
+                   onclick="clickNavItem('Woman')">Woman</a>
+            </li>
+            <li class="nav-item active">
+                <a href="http://127.0.0.1:5050/home/fashion" id="fashion" class="nav-link ms-5 hvr-underline-from-left"
+                   onclick="clickNavItem('Fashion')">Fashion</a>
+            </li>
+            <li class="nav-item active">
+                <a href="http://127.0.0.1:5050/home/sport" id="sport" class="nav-link ms-5 hvr-underline-from-left"
+                   onclick="clickNavItem('Sport')">Sport</a>
+            </li>
+        </ul>
+        <form class="d-flex">
+            <input id="input-search" class="form-control me-2" type="text" placeholder="Search"
+                   onkeyup="changeInputSearch()">
+            <div class="btn btn-light me-2" id="search">
+                <script>
+                    function changeInputSearch() {
+                        let innerSearch = '<a id="a" href="http://127.0.0.1:5050/search/' + document.getElementById('input-search').value + '">' +
+                            '<i class="fa fa-search text-black" style="font-size: 24px"></i>' +
+                            '</a>'
+                        document.getElementById('search').innerHTML = innerSearch;
+                    }
+
+                    let inputSearch = document.getElementById('input-search');
+                    inputSearch.addEventListener("keydown", function (e) {
+                        if (e.key == 'Enter') {
+                            window.close();
+                            window.open("http://127.0.0.1:5050/search/" + document.getElementById('input-search').value);
                         }
-                        let inputSearch = document.getElementById('input-search');
-                        inputSearch.addEventListener("keydown", function (e) {
-                            if (e.key == 'Enter') {
-                                window.close();
-                                window.open("http://127.0.0.1:5050/search/" + document.getElementById('input-search').value);
-                            }
-                        })
-                        changeInputSearch();
-                    </script>
+                    })
+                    changeInputSearch();
+                </script>
+            </div>
+        </form>
+    </div>
+    <div>
+        <button class="btn btn-light position-relative">
+            <a href="http://127.0.0.1:5050/cart/products" style="color: #000">
+                <i class="fa fa-shopping-cart" style="font-size: 24px"></i>
+            </a>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 10px">1</span>
+        </button>
+        <button class="btn btn-light" type="button">
+            <a href="http://127.0.0.1:5050/signup" style="color: #000">
+                <i class="fa fa-user" style="font-size: 24px"></i>
+            </a>
+        </button>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="container" style="padding-top: 100px">
+    <div class="container">
+        <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
+            <!-- Image product -->
+            <div class="d-flex flex-lg-row-reverse flex-md-column flex-sm-column">
+                <div class="d-block col-lg-10">
+                    <img id="image-product" class="card-img-top p-2"
+                         src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5045.jpg">
                 </div>
+                <div class="d-flex flex-lg-column flex-md-row flex-sm-row col-lg-2 py-1">
+                    <img id="image1" class="img-item m-1"
+                         src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5045.jpg"
+                         onclick="clickImgItem('image1')">
+                    <img id="image2" class="img-item m-1"
+                         src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5047.jpg"
+                         onclick="clickImgItem('image2')">
+                    <img id="image3" class="img-item m-1"
+                         src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5048.jpg"
+                         onclick="clickImgItem('image3')">
+                    <img id="image4" class="img-item m-1"
+                         src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5050.jpg"
+                         onclick="clickImgItem('image4')">
+                </div>
+
+            </div>
+
+            <!-- Info product -->
+            <form>
+                <div class="py-3">
+                    <h3 id="name"></h3>
+                    <h4 id="price" style="color: crimson"></h4>
+                    <h5 class="mt-2">Size</h5>
+                    <input type="hidden" name="product_id" value="{{ id }}">
+                    <div class="d-inline" id="size">
+                        <input type="radio" id="size36" class="btn-check" name="size" value="36">
+                        <label class="btn btn-outline-dark my-1" for="size36">36</label>
+                        <input type="radio" id="size37" class="btn-check" name="size" value="37">
+                        <label class="btn btn-outline-dark my-1" for="size37">37</label>
+                        <input type="radio" id="size38" class="btn-check" name="size" value="38">
+                        <label class="btn btn-outline-dark my-1" for="size38">38</label>
+                        <input type="radio" id="size39" class="btn-check" name="size" value="39">
+                        <label class="btn btn-outline-dark my-1" for="size39">39</label>
+                        <input type="radio" id="size40" class="btn-check" name="size" value="40">
+                        <label class="btn btn-outline-dark my-1" for="size40">40</label>
+                        <input type="radio" id="size41" class="btn-check" name="size" value="41">
+                        <label class="btn btn-outline-dark my-1" for="size41">41</label>
+                        <input type="radio" id="size42" class="btn-check" name="size" value="42" onclick="clickSize()">
+                        <label class="btn btn-outline-dark my-1" for="size42">42</label>
+                    </div>
+                    <h5 class="mt-2">Số lượng</h5>
+                    <div class="btn-toolbar">
+                        <div class="btn-group" role="group" aria-label="Number">
+                            <button type="button" class="btn btn-outline-dark" onclick="clickMinus()">-</button>
+                            <input id="number" type="text" class="btn btn-outline-dark" name="qty" value="1"
+                                   style="width: 45px">
+                            <button type="button" class="btn btn-outline-dark" onclick="clickPlus()">+</button>
+                        </div>
+                        <div id="quantityInStock" class="align-self-center ms-2 text-secondary"></div>
+                    </div>
+                    {%- for category, message in get_flashed_messages(with_categories = true) %}
+                    <div class="alert alert-danger mb-0 mt-3">
+                        {{ message }}
+                    </div>
+                    {%- endfor %}
+                    <br>
+                    <div class="d-inline-block mt-2">
+                        <button class="btn btn-outline-danger my-1" id="add-to-cart" type="button">
+                            <i class="fa fa-cart-plus"></i>
+                            Thêm vào giỏ hàng
+                        </button>
+                        <button type="button" class="btn btn-danger" id="buy-now">Mua ngay</button>
+                    </div>
+                </div>
+
             </form>
         </div>
-        <div>
-            <button class="btn btn-light position-relative">
-                <a href="http://127.0.0.1:5050/cart/products" style="color: #000">
-                    <i class="fa fa-shopping-cart" style="font-size: 24px"></i>
-                </a>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px">1</span>
-            </button>
-            <button class="btn btn-light" type="button">
-                <a href="http://127.0.0.1:5050/signup" style="color: #000">
-                    <i class="fa fa-user" style="font-size: 24px"></i>
-                </a>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Content -->
-    <div class="container" style="padding-top: 100px">
-        <div class="container">
-            <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
-                <!-- Image product -->
-                <div class="d-flex flex-lg-row-reverse flex-md-column flex-sm-column">
-                    <div class="d-block col-lg-10">
-                        <img id="image-product" class="card-img-top p-2" src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5045.jpg">
-                    </div>
-                    <div class="d-flex flex-lg-column flex-md-row flex-sm-row col-lg-2 py-1">
-                        <img id="image1" class="img-item m-1" src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5045.jpg" onclick="clickImgItem('image1')">
-                        <img id="image2" class="img-item m-1" src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5047.jpg" onclick="clickImgItem('image2')">
-                        <img id="image3" class="img-item m-1" src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5048.jpg" onclick="clickImgItem('image3')">
-                        <img id="image4" class="img-item m-1" src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5050.jpg" onclick="clickImgItem('image4')">
-                    </div>
-
-                </div>
-
-                <!-- Info product -->
-                <form>
-                    <div class="py-3">
-                        <h3 id="name"></h3>
-                        <h4 id="price" style="color: crimson"></h4>
-                        <h5 class="mt-2">Size</h5>
-                        <input type="hidden" name="product_id" value="{{ id }}">
-                        <div class="d-inline" id="size">
-                            <input type="radio" id="size36" class="btn-check" name="size" value="36">
-                            <label class="btn btn-outline-dark my-1" for="size36">36</label>
-                            <input type="radio" id="size37" class="btn-check" name="size" value="37">
-                            <label class="btn btn-outline-dark my-1" for="size37">37</label>
-                            <input type="radio" id="size38" class="btn-check" name="size" value="38">
-                            <label class="btn btn-outline-dark my-1" for="size38">38</label>
-                            <input type="radio" id="size39" class="btn-check" name="size" value="39">
-                            <label class="btn btn-outline-dark my-1" for="size39">39</label>
-                            <input type="radio" id="size40" class="btn-check" name="size" value="40">
-                            <label class="btn btn-outline-dark my-1" for="size40">40</label>
-                            <input type="radio" id="size41" class="btn-check" name="size" value="41">
-                            <label class="btn btn-outline-dark my-1" for="size41">41</label>
-                            <input type="radio" id="size42" class="btn-check" name="size" value="42" onclick="clickSize()">
-                            <label class="btn btn-outline-dark my-1" for="size42">42</label>
-                        </div>
-                        <h5 class="mt-2">Số lượng</h5>
-                        <div class="btn-toolbar">
-                            <div class="btn-group" role="group" aria-label="Number">
-                                <button type="button" class="btn btn-outline-dark" onclick="clickMinus()">-</button>
-                                <input id="number" type="text" class="btn btn-outline-dark" name="qty" value="1" style="width: 45px">
-                                <button type="button" class="btn btn-outline-dark" onclick="clickPlus()">+</button>
-                            </div>
-                            <div id="quantityInStock" class="align-self-center ms-2 text-secondary"></div>
-                        </div>
-                        {%- for category, message in get_flashed_messages(with_categories = true) %}
-                            <div class = "alert alert-danger mb-0 mt-3">
-                                {{ message }}
-                            </div>
-                        {%- endfor %}
-                        <br>
-                        <div class="d-inline-block mt-2">
-                            <button class="btn btn-outline-danger my-1" id="add-to-cart" type="button">
-                                <i class="fa fa-cart-plus"></i>
-                                Thêm vào giỏ hàng
-                            </button>
-                            <button type="button" class="btn btn-danger">Mua ngay</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-        <!-- Mô tả -->
-        <div class="pt-5">
-            <ul style="border-bottom: grey solid 2px"><h4>Mô tả</h4></ul>
-            <h5 id="description" class="text-secondary">
-                <!--<li>Chất liệu cao cấp.</li>
-                <li>Bền đẹp theo thời gian.</li>
-                <li>Thiết kế thời trang.</li>
-                <li>Kiểu dáng phong cách.</li>
-                <li>Độ bền cao. Dễ phối đồ.</li>-->
-            </h5>
-        </div>
-
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white mt-5">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-md-5 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h5 class="text-uppercase fw-bold mb-4">Know About Us</h5>
-                    <p>
-                        Name group "Nine"<br>
-                        Members: Trang , Nhung, Huong, Lan <br>
-                        Date of foundation: 20/03/2022 <br>
-                    </p>
-                </div>
+    <!-- Mô tả -->
+    <div class="pt-5">
+        <ul style="border-bottom: grey solid 2px"><h4>Mô tả</h4></ul>
+        <h5 id="description" class="text-secondary">
+            <!--<li>Chất liệu cao cấp.</li>
+            <li>Bền đẹp theo thời gian.</li>
+            <li>Thiết kế thời trang.</li>
+            <li>Kiểu dáng phong cách.</li>
+            <li>Độ bền cao. Dễ phối đồ.</li>-->
+        </h5>
+    </div>
 
-                <div class="col-md-5 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h5 class="text-uppercase fw-bold mb-4">Other Branks</h5>
-                    <p>
-                        144 Xuan Thuy - Cau Giay - HN<br>
-                        99 Lang Thuong - Dong Da - HN<br>
-                        Quan 5 - Ben Thanh - TPHCM<br>
-                        Quan 3 - Nguyen Hue - TPHCM
-                    </p>
-                </div>
+</div>
 
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h5 class="text-uppercase fw-bold mb-4">Contact</h5>
-                    <p>
-                        <i class="fa fa-envelope me-3"></i>
-                        info@example.com<br>
-                        <i class="fa fa-phone me-3"></i> + 01 234 567 89<br>
-                        <i class="fa fa-facebook me-3"></i> Nine Shop
-                    </p>
-                </div>
+<!-- Footer -->
+<footer class="bg-dark text-white mt-5">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-5 col-lg-4 col-xl-3 mx-auto mb-4">
+                <h5 class="text-uppercase fw-bold mb-4">Know About Us</h5>
+                <p>
+                    Name group "Nine"<br>
+                    Members: Trang , Nhung, Huong, Lan <br>
+                    Date of foundation: 20/03/2022 <br>
+                </p>
+            </div>
+
+            <div class="col-md-5 col-lg-4 col-xl-3 mx-auto mb-4">
+                <h5 class="text-uppercase fw-bold mb-4">Other Branks</h5>
+                <p>
+                    144 Xuan Thuy - Cau Giay - HN<br>
+                    99 Lang Thuong - Dong Da - HN<br>
+                    Quan 5 - Ben Thanh - TPHCM<br>
+                    Quan 3 - Nguyen Hue - TPHCM
+                </p>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <h5 class="text-uppercase fw-bold mb-4">Contact</h5>
+                <p>
+                    <i class="fa fa-envelope me-3"></i>
+                    info@example.com<br>
+                    <i class="fa fa-phone me-3"></i> + 01 234 567 89<br>
+                    <i class="fa fa-facebook me-3"></i> Nine Shop
+                </p>
             </div>
         </div>
-    </footer>
-    <div id="productID" class="d-none">{{id}}</div>
-    <script type="text/javascript">
-            load(document.getElementById('productID').innerText);
-
-            document.querySelector("#add-to-cart").addEventListener('click', function () {
-                addToCart(
-                    document.getElementById('productID').innerText,
-                    38,
-                    2
-                )
-            })
-
-    </script>
+    </div>
+</footer>
+<div id="productID" class="d-none">{{id}}</div>
+<script type="text/javascript">
+    load(document.getElementById('productID').innerText);
+    document.querySelector("#add-to-cart").addEventListener('click', function () {
+        addToCart(
+            document.getElementById('productID').innerText,
+            38,
+            2
+        )
+    })
+</script>
 </body>
 </html>
