@@ -101,3 +101,4 @@ function addToCart(productId, size, quantity) {
             }, 3000);
         })
 }
+

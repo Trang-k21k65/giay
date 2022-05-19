@@ -79,6 +79,10 @@ a {
     }
 }
 
+.img-item:hover {
+    border: solid orangered 2px;
+}
+
 .hvr {
   display: flex;
   flex-direction: row;
@@ -145,9 +149,9 @@ a {
 .btn-choose:hover {
     background-color: #beb9b9; 
 }
-.btn-light:hover {
+/*.btn-light:hover {
     background-color:antiquewhite;
-}
+}*/
 .choice {
     display: flex;
     justify-content: space-between;
@@ -170,4 +174,39 @@ a {
 .btn-choice:hover {
     background-color:#30353a;
     color: rgb(249, 239, 226);
+}
+
+.topLeft:before {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.text-block {
+  position: absolute;
+  margin-top: 25px;
+  margin-right: 20px;
+  color: white;
+  padding: 0 5px 0 5px;
+}
+
+.hidden-text {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+
+#message-box {
+    position: fixed;
+    top: 25%;
+    left: 30%;
+    width: 40%;
+    height: 30%;
+    text-align: center;
+    padding: 5% 0 15% 0;
+    background-color: rgba(50, 50, 50, 0.8);
+    font-size: 20px;
+    border-radius: 5px;
 }
