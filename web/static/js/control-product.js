@@ -16,28 +16,36 @@ function clickPlus() {
 
 
 function load(id) {
-    fetch("http://127.0.0.1:5050/products/details/" + id)
+    fetch("/products/details/" + id)
         .then(function (response) {
             return response.json();
         })
         .then(function (product) {
             let p = product[0];
-            document.getElementById('image-product').src = p.image;
-            document.getElementById('image1').src = p.image;
+            let images = p.image.split('\n');
+            document.getElementById('image-product').src = images[0];
+
+            for (let i = 0; i < images.length; i++) {
+                document.getElementById('image' + i).src = images[i];
+                document.getElementById('image' + i).removeAttribute("hidden");
+            }
+
             document.getElementById('name').innerText = p.name;
+            let oldPrice = (p.sellPrice * (1 + p.tag / 100)).toFixed(0);
+            document.getElementById('old-price').innerHTML = '<del>' + oldPrice +'<ins>đ</ins></del>';
             document.getElementById('price').innerHTML = p.sellPrice.toLocaleString("vi") + '<ins>đ</ins>';
 
             var size_inner_html = ''
             let total = 0;
             for (let s of p.sizes) {
-                size_inner_html += '<input type="radio" id="size' + s.size + '" class="btn-check" name="size" value="' + s.size + '" onclick="clickSize(' + s.size + ')">' +
-                    '<label class="btn btn-outline-dark my-1 me-1" for="size' + s.size + '">' + s.size + '</label>';
+                size_inner_html += '<input checked="checked" type="radio" id="size' + s.size + '" class="btn-check" name="size" value="' + s.size + '" onclick="clickSize(' + s.size + ')">' +
+                                    '<label class="btn btn-outline-dark my-1 me-1" for="size' + s.size + '">' + s.size + '</label>';
                 total += s.quantityInStock;
             }
             document.getElementById('size').innerHTML = size_inner_html;
             document.getElementById('quantityInStock').innerText = total + ' sản phẩm có sẵn';
 
-            let description = p.description.split('.');
+            let description = p.description.split('\n');
             let description_inner_html = '';
             for (let d of description) {
                 if (d != '') {
@@ -49,7 +57,7 @@ function load(id) {
 }
 
 function clickSize(size) {
-    fetch("http://127.0.0.1:5050/products/details/" + document.getElementById('productID').innerText)
+    fetch("/products/details/" + document.getElementById('productID').value)
         .then(function (response) {
             return response.json();
         })
@@ -66,19 +74,31 @@ function clickSize(size) {
         })
 }
 
+
 function addToCart(productId, size, quantity) {
     let formData = new FormData();
     formData.append('product_id', productId);
     formData.append('size', size);
     formData.append('qty', quantity);
-    fetch("http://127.0.0.1:5050/addcart", {
+    fetch("/addcart", {
         method: "POST",
         body: formData
     })
         .then(function (response) {
-            console.log(response.json())
-            alert("da them")
-            return response.json();
+            return response.text();
         })
-    // window.location
+        .then(function (message) {
+            if (message == 'Success') {
+                document.getElementById('message').innerText = 'Sản phẩm đã được thêm vào giỏ hàng thành công';
+                document.getElementById('img-message').src = '../static/image/tick.png'
+            } else {
+                document.getElementById('message').innerText = message;
+                document.getElementById('img-message').src = '../static/image/x.png'
+            }
+            document.getElementById('message-box').style.display = 'block';
+            setTimeout(function () {
+                $('#message-box').fadeOut('fast');
+            }, 3000);
+        })
 }
+
