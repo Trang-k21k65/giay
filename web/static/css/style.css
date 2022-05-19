@@ -201,12 +201,19 @@ a {
 #message-box {
     position: fixed;
     top: 25%;
-    left: 30%;
-    width: 40%;
+    left: 35%;
+    width: 30%;
     height: 30%;
     text-align: center;
     padding: 5% 0 15% 0;
     background-color: rgba(50, 50, 50, 0.8);
     font-size: 20px;
     border-radius: 5px;
+}
+
+@media only screen and (max-width: 1000px){
+    #message-box {
+        left: 30%;
+        width: 40%;
+    }
 }
