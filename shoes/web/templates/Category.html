@@ -1,0 +1,86 @@
+{% extends 'Base.html' %}
+
+{% block js %}
+    <script src="../static/js/control-category.js"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Carousel -->
+    <div id="carouselExampleCaptions" class="carousel slide" style="padding-top: 60px" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <img src="../static/image/banner.png" class="d-block w-100" alt="banner">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="../static/image/banner1.png" class="d-block w-100" alt="banner">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="../static/image/banner2.png" class="d-block w-100" alt="banner">
+        </div>
+          <div class="carousel-item" data-bs-interval="3000">
+          <img src="../static/image/banner3.jpg" class="d-block w-100" alt="banner">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="container mt-3">
+        <div class="d-flex justify-content-start" style="background-color: #ededed; height: 50px">
+            <div class="ms-2 me-1 my-auto">Sắp xếp theo</div>
+            <div class="mx-1 my-auto">
+                <button id="moi-nhat" class="btn btn-light" onclick="clickSort('moi-nhat')">Mới nhất</button>
+            </div>
+            <div class="mx-1 my-auto">
+                <button id="ban-chay" class="btn btn-light" onclick="clickSort('ban-chay')">Bán chạy</button>
+            </div>
+            <div class="dropdown mx-1 my-auto">
+                <button class="btn btn-light dropdown-toggle" type="button" id="sort" data-bs-toggle="dropdown" aria-expanded="false">
+                    Giá
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="sort">
+                    <li><button class="dropdown-item" style="font-size: 15px" onclick="clickSort('asc')">
+                        <i class="fa fa-sort-numeric-asc"></i> Giá từ thấp đến cao
+                    </button></li>
+                    <li><button class="dropdown-item" style="font-size: 15px" onclick="clickSort('desc')">
+                        <i class="fa fa-sort-numeric-desc"></i> Giá từ cao đến thấp
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Products -->
+        <div id ="products" class="row align-content-center row-cols-2 row-cols-lg-4 gy-2 gy-lg-4">
+            <div class="d-block mx-auto">
+                <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/a60759ad1dabe909c46a817ecbf71878.png" class="w-50 d-block mx-auto" alt="Not Found">
+                <div class="text-center text-secondary">Không tìm thấy kết quả nào</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="classify" class="d-none">{{ classify }}</div>
+    <div id="name" class="d-none">{{ name }}</div>
+    <script>
+        classify = document.getElementById('classify').innerText;
+        if (classify != '')
+            loadProductByType(classify);
+        name = document.getElementById('name').innerText;
+        if (name != '')
+            loadProductSearch(name);
+    </script>
+{% endblock %}

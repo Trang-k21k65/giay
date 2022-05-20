@@ -1,0 +1,134 @@
+{% extends 'Base.html' %}
+
+{% block js %}
+    <script src="../static/js/control-product.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Content -->
+    <div class="container" style="padding-top: 100px">
+        <div class="container">
+            <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
+                <!-- Image product -->
+                <div class="d-flex flex-lg-row-reverse flex-md-column flex-sm-column">
+                    <div class="d-block col-lg-10">
+                        <img id="image-product" class="card-img-top p-2"
+                             src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5045.jpg">
+                    </div>
+                    <div class="d-flex flex-lg-column flex-md-row flex-sm-row col-lg-2 py-1">
+                        <img id="image0" class="img-item m-1"
+                             src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5045.jpg"
+                             onclick="clickImgItem('image0')" hidden>
+                        <img id="image1" class="img-item m-1"
+                             src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5047.jpg"
+                             onclick="clickImgItem('image1')" hidden>
+                        <img id="image2" class="img-item m-1"
+                             src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5048.jpg"
+                             onclick="clickImgItem('image2')" hidden>
+                        <img id="image3" class="img-item m-1"
+                             src="https://giayxshop.vn/wp-content/uploads/2019/02/MG_5050.jpg"
+                             onclick="clickImgItem('image3')" hidden>
+                    </div>
+
+                </div>
+
+                <!-- Info product -->
+                <form>
+                    <div class="py-3">
+                        <h3 id="name"></h3>
+                        <span id="old-price" class=" text-secondary"></span>
+                        <span id="price" style="font-size: 24px; color: crimson"></span>
+                        <h5 class="mt-2">Size</h5>
+                        <input id="productID" type="hidden" name="product_id" value="{{ id }}">
+                        <div class="d-inline" id="size">
+                            <!--<input type="radio" id="size36" class="btn-check" name="size" value="36">
+                            <label class="btn btn-outline-dark my-1" for="size36">36</label>
+                            <input type="radio" id="size37" class="btn-check" name="size" value="37">
+                            <label class="btn btn-outline-dark my-1" for="size37">37</label>
+                            <input type="radio" id="size38" class="btn-check" name="size" value="38">
+                            <label class="btn btn-outline-dark my-1" for="size38">38</label>
+                            <input type="radio" id="size39" class="btn-check" name="size" value="39">
+                            <label class="btn btn-outline-dark my-1" for="size39">39</label>
+                            <input type="radio" id="size40" class="btn-check" name="size" value="40">
+                            <label class="btn btn-outline-dark my-1" for="size40">40</label>
+                            <input type="radio" id="size41" class="btn-check" name="size" value="41">
+                            <label class="btn btn-outline-dark my-1" for="size41">41</label>
+                            <input type="radio" id="size42" class="btn-check" name="size" value="42" onclick="clickSize()">
+                            <label class="btn btn-outline-dark my-1" for="size42">42</label>
+                            -->
+                        </div>
+                        <h5 class="mt-2">Số lượng</h5>
+                        <div class="btn-toolbar">
+                            <div class="btn-group" role="group" aria-label="Number">
+                                <button type="button" class="btn btn-outline-dark" onclick="clickMinus()">-</button>
+                                <input id="number" type="text" class="btn btn-outline-dark" name="qty" value="1"
+                                       style="width: 45px">
+                                <button type="button" class="btn btn-outline-dark" onclick="clickPlus()">+</button>
+                            </div>
+                            <div id="quantityInStock" class="align-self-center ms-2 text-secondary"></div>
+                        </div>
+
+
+                        <br>
+                        <div class="d-inline-block mt-2">
+                            <button class="btn btn-outline-danger my-1" id="add-to-cart" type="button">
+                                <i class="fa fa-cart-plus"></i>
+                                Thêm vào giỏ hàng
+                            </button>
+                            <button type="button" class="btn btn-danger" id="buy-now">Mua ngay</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Mô tả -->
+        <div class="pt-5">
+            <ul style="border-bottom: grey solid 2px"><h4>Mô tả</h4></ul>
+            <h5 id="description" class="text-secondary"></h5>
+        </div>
+
+    </div>
+
+    <!-- message -->
+    <div id="message-box" style="display: none">
+        <img id="img-message" src="../static/image/tick.png" class="w-25 d-block mx-auto">
+        <div id="message" class="text-white mt-2">Success</div>
+    </div>
+    <!-- -->
+
+    <script type="text/javascript">
+        load(document.getElementById('productID').value);
+        document.querySelector("#add-to-cart").addEventListener('click', function () {
+            let sizeSelected;
+            for (let size of document.getElementsByName('size')) {
+                if (size.checked) {
+                    sizeSelected = size.value;
+                }
+            };
+            alert(sizeSelected)
+            addToCart(
+                document.getElementById('productID').value,
+                sizeSelected,
+                document.getElementById('number').value
+            )
+        })
+        document.querySelector("#buy-now").addEventListener('click', function () {
+            let sizeSelected;
+            for (let size of document.getElementsByName('size')) {
+                if (size.checked) {
+                    sizeSelected = size.value;
+                }
+            };
+            addToCart(
+                document.getElementById('productID').value,
+                sizeSelected,
+                document.getElementById('number').value
+            )
+            window.location.assign('/cart/products');
+        })
+    </script>
+{% endblock %}

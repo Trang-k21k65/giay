@@ -1,0 +1,90 @@
+{% extends 'Base.html' %}
+
+{% block js %}
+    <script src="../static/js/control-home.js"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Carousel -->
+    <div id="carouselExampleCaptions" class="carousel slide" style="padding-top: 60px" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <img src="../static/image/banner.png" class="d-block w-100" alt="banner">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="../static/image/banner1.png" class="d-block w-100" alt="banner">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="../static/image/banner2.png" class="d-block w-100" alt="banner">
+        </div>
+          <div class="carousel-item" data-bs-interval="3000">
+          <img src="../static/image/banner3.jpg" class="d-block w-100" alt="banner">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Hàng mới về -->
+    <div class="container mt-5 bg-white">
+        <div class="pt-1">
+            <h2 class="text-danger fw-bold" style="font-family: 'Candara'">Hàng mới về</h2>
+        </div>
+        <hr class="mt-0">
+        <div id ="new-product" class="row align-content-center row-cols-2 row-cols-lg-4 gy-2 gy-lg-4"></div>
+    </div>
+
+    <!-- Sản phẩm bán chạy -->
+    <div class="container mt-3 bg-white">
+        <div class="pt-1">
+            <h2 class="text-danger fw-bold" style="font-family: 'Candara'">Sản phẩm bán chạy</h2>
+        </div>
+        <hr class="mt-0">
+        <div id ="best-selling" class="row align-content-center row-cols-2 row-cols-lg-4 gy-2 gy-lg-4"></div>
+    </div>
+
+    <!-- Brand -->
+    <div class="container mt-3 bg-white">
+        <div class="pt-1">
+            <h2 class="text-danger fw-bold" style="font-family: 'Candara'">Thương hiệu nổi bật</h2>
+        </div>
+        <hr class="mt-0">
+        <div id ="brand" class="row align-content-center row-cols-3 row-cols-lg-6 gy-2 gy-lg-4">
+            <div class="col">
+                <a href="/home/Nike"><img src="../static/image/nike.png" class="w-100"></a>
+            </div>
+            <div class="col">
+                <a href="/home/Adidas"><img src="../static/image/adidas.png" class="w-100"></a>
+            </div>
+            <div class="col">
+                <a href="/home/Vans"><img src="../static/image/vans.png" class="w-100"></a>
+            </div>
+            <div class="col">
+                <a href="/home/Converse"><img src="../static/image/converse.png" class="w-100"></a>
+            </div>
+            <div class="col">
+                <a href="/home/MLB"><img src="../static/image/mlb.png" class="w-100"></a>
+            </div>
+            <div class="col">
+                <a href="/home/Puma"><img src="../static/image/puma.png" class="w-100"></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        loadNewProducts();
+        loadBestSelling();
+    </script>
+{% endblock %}

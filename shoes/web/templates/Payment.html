@@ -1,0 +1,89 @@
+{% extends 'Base.html' %}
+
+{% block js %}
+    <script src="../static/js/control_payment.js"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Banner -->
+    <div class="row align-content-start pb-5">
+        <div class="carousel-inner carousel-item active">
+            <img src="https://x9shop.vn/wp-content/uploads/2020/08/banner111-1400x474.jpg" class="d-block w-100" alt="banner">
+        </div>
+    </div>
+    <!--Introduction of products-->
+    <div class="container item-border my-4">
+        <div class="row gx-0 row-cols-4 mb-3" style="font-size: 20px; border-bottom: 2px solid #cccccc">
+            <div class="col-3 ps-5">
+                <b>Products</b>
+            </div>
+            <div class="col-4 ps-2">
+                <b>Details</b>
+            </div>
+            <div class="col-2 ps-5">
+                <b>Quantity</b>
+            </div>
+            <div class="col-3 ps-5">
+                <b>Total Price</b>
+            </div>
+        </div>
+        <div id="item" class="row align-content-center row-cols-1">
+        </div>
+    </div>
+    <!--Details of payment-->
+    <div class="container pt-2 pb-4">
+        <div class="row my-5 align-content-center row-cols-2">
+            <div class="col">
+                <h2 class="card-title" style="padding-top:50px;padding-bottom:50px;">Thông tin liên hệ</h2>
+                <table class="table" style="font-size:18px;">
+                    <tr>
+                        <th>Họ và tên</th>
+                        <td>
+                            <input type="text" style="border:0px; width:100%;" placeholder="Họ và tên" id="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Số điện thoại</th>
+                        <td>
+                            <input type="text" style="border:0px; width:100%;" placeholder="Số điện thoại" id="phone">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ</th>
+                        <td>
+                            <input type="text" style="border:0px; width:100%;" placeholder="Số 4, ngõ 20, Láng Thượng, Đống Đa, HN" id="address">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col" style="background-color:#fef8f8">
+                <h2 class="card-title" style="padding-top:50px;padding-bottom:50px;">Cộng Giỏ Hàng</h2>
+                <table class="table" style="font-size:18px;" id="pay">
+                    <tr>
+                        <th>Tạm Tính</th>
+                        <td id="sum" style="text-align: right;"></td>
+                    </tr>
+                    <tr>
+                        <th>Phí Ship</th>
+                        <td id="fee" style="text-align: right;">15.000đ</td>
+                    </tr>
+                    <tr>
+                        <th>Tổng Cộng</th>
+                        <td id="totalprice" style="text-align: right;"></td>
+                    </tr>
+                </table>
+                <div style="text-align: center">
+                    <a href="http://127.0.0.1:5050/success" class="btn btn-choose">THANH TOÁN</a>
+                </div>
+                <div style="text-align: center">
+                    <a href="http://127.0.0.1:5050" class="btn btn-choose">MUA THÊM SẢN PHẨM KHÁC</a>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <script>
+        loadItems();
+    </script>
+
+ {% endblock %}
