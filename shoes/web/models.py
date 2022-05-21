@@ -27,8 +27,10 @@ class User(db.Model):
 
 class Order(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
-    status = Column(String(20), default='Đang mua')  # Gồm: Đang mua, Đặt hàng, Xác nhận, Đang giao, Đã nhận, Hủy đơn
+    status = Column(String(20), default='Đang mua')  # Gồm: Đang mua, Đặt hàng, Đang giao, Đã nhận, Hủy đơn
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+    orderDate = Column(DateTime)
+    shippedDate = Column(DateTime)
     order_details = relationship('Orderdetail', backref='order', lazy=True)
 
     def __str__(self):
@@ -42,7 +44,7 @@ class Product(db.Model):
     buyPrice = Column(Integer, nullable=False)
     sellPrice = Column(Integer, nullable=False)
     tag = Column(Integer)
-    importDate = Column(DateTime)  # default=DateTime.datetime.utcnow
+    importDate = Column(DateTime)
     description = Column(Text)
     image = Column(Text)
     consume = Column(Integer, default=3)  # luong tieu thu
@@ -60,7 +62,7 @@ class Orderdetail(db.Model):
     product_id = Column(String(15), ForeignKey(Product.id), primary_key=True)
     size = Column(Integer, primary_key=True)
     comment = Column(String(100))
-    sellPrice = Column(Integer)
+    sellPrice = Column(Integer)  # bỏ cái này đi
     quantityOrdered = Column(Integer, nullable=False)
 
     def __str__(self):
