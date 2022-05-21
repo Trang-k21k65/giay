@@ -1,39 +1,27 @@
 
-function totalPay() {
-    var f = document.getElementById('fee').innerHTML;
-    fetch("http://127.0.0.1:5050/cart")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (cart) {
-            var s = 0;
-            for (let i of cart) {
-                s += i.quantityOrdered*i.sellPrice;
-            }
-            document.getElementById('sum').innerHTML = s.toLocaleString("vi") + "đ";
-            document.getElementById('totalprice').innerHTML = (s + parseFloat(f)*1000).toLocaleString("vi") + "đ";
-        })
-}
-
 function loadItems() {
     fetch("http://127.0.0.1:5050/cart")
         .then(function (response) {
             return response.json();
         })
         .then(function (cart) {
-            var s = '';
+            let f = document.getElementById('fee').innerHTML;
+            let sum = 0;
+            let s = '';
             for (let i of cart) {
+                sum += i.quantityOrdered * i.sellPrice;
                 s +='<div class="cart-item"><div class="cart-img">' + 
                     '<img class="card-img" src="' + i.product.image + '" alt="' + i.product.id + ' width:"100%;"/></div>' +  
-                    '<div class="item-detail"><p id="name" style="line-height: 0.3;">'+ i.product.name + '</p>' +
-                    'Size: ' + i.size + '<br>Giá thành: ' + i.sellPrice.toLocaleString("vi") + 'đ' + '</p></div>' +
-                    '<div class="cart-quantity"><div class="row gx-0">' + 
-                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" onclick="clickChoose(0)">-</button></div>' +
-                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" id="quantity">' + i.quantityOrdered + '</button></div>' +
-                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" onclick="clickChoose(1)">+</button></div>' +
-                    '</div></div><div class="cart-price"><p id="tPrice">' + (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + 'đ</p></div></div>'; 
+                    '<div class="item-detail"><p>'+ i.product.name + '<br>Size: ' + i.size + '<br>Giá thành: ' + i.sellPrice.toLocaleString("vi") + 
+                    'đ' + '</p></div>' + '<div class="cart-quantity"><div class="row gx-0">' + 
+                    '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + '-"' + 'style="width: 100%;" onclick="clickChoose(this.id)">-</button></div>' +
+                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%;" id="' + i.product.id + '-quantity">' + i.quantityOrdered + '</button></div>' +
+                    '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + '+"' + 'style="width: 100%;" onclick="clickChoose(this.id)">+</button></div>' +
+                    '</div></div><div class="cart-price"><p id="' + i.product.id + '-price">' + (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + 'đ</p></div></div>'; 
             }
             document.getElementById('item').innerHTML = s;
+            document.getElementById('sum').innerHTML = sum.toLocaleString("vi") + "đ";
+            document.getElementById('totalprice').innerHTML = (sum + parseFloat(f)*1000).toLocaleString("vi") + "đ";
         })
         .catch(function (err) {
             console.log(err);
@@ -46,30 +34,40 @@ function clickChoose(type) {
             return response.json();
         })
         .then(function (cart) {
+            let f = document.getElementById('fee').innerHTML;
+            let sum = 0;
             for (let i of cart) {
-                if (i.product.name == document.getElementById('name').innerHTML) {
-                    if (type == 0) {
-                        if (i.quantityOrdered > 1) {
-                            
-                        } else if (i.quantityOrdered == 1) {
-                            var ans = confirm('Bạn chắc chắn muốn xóa sản phẩm khỏi giỏ hàng?');
-                            if (ans) {
-                                
-                            } else {
-                                
-                            }
-                        }
-                    } else {
-                        if (i.quantityOrdered + 1 < 5) {
-                            
+                if ((i.product.id + '-') == type) {
+                    let quantity = document.getElementById(i.product.id + '-quantity').innerHTML;
+                    quantity = parseInt(quantity);
+                    if (quantity > 1) {
+                        quantity--;
+                    } else if (quantity == 1) {
+                        var ans = confirm('Bạn chắc chắn muốn xóa sản phẩm khỏi giỏ hàng?');
+                        if (ans) {
+                            quantity = 0;
                         } else {
-                            
+                            quantity = 1;
                         }
                     }
-                    document.getElementById('tPrice').innerHTML = (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + "đ";
-                    document.getElementById('quantity').innerHTML = i.quantityOrdered;
-                }
-            }
-            
+                    document.getElementById(i.product.id + '-price').innerHTML = (quantity*i.sellPrice).toLocaleString("vi") + "đ";
+                    document.getElementById(i.product.id + '-quantity').innerHTML = quantity;
+                } else if ((i.product.id + '+') == type) {
+                    let quantity = document.getElementById(i.product.id + '-quantity').innerHTML;
+                    quantity = parseInt(quantity);
+                    if (quantity + 1 < 5) {
+                        quantity++;
+                    } else {
+                        quantity = 5;
+                    }
+                    document.getElementById(i.product.id + '-price').innerHTML = (quantity*i.sellPrice).toLocaleString("vi") + "đ";
+                    document.getElementById(i.product.id + '-quantity').innerHTML = quantity;
+                } 
+                let num = document.getElementById(i.product.id + '-quantity').innerHTML;
+                num = parseInt(num);
+                sum += num * i.sellPrice;
+            } 
+            document.getElementById('sum').innerHTML = sum.toLocaleString("vi") + "đ";
+            document.getElementById('totalprice').innerHTML = (sum + parseFloat(f)*1000).toLocaleString("vi") + "đ";
         })
 }

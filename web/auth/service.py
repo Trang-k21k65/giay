@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, flash
 from ..models import User, db
 from .controller import auth
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 @auth.route('/signup', methods=["POST", 'GET'])
@@ -48,3 +49,60 @@ def logout():
     session.pop('user', None)
     session.pop('admin', None)
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/user', methods=["POST", "GET"])
+def user():
+    if 'user' in session:
+        user_id = session.get('user')
+        user_detail = User.query.filter_by(id=user_id).first()
+        current_psw = ""
+        new_psw = ""
+        re_password = ""
+        flag = False
+        user_fullname = request.form.get('fullname', None)
+        user_phone = request.form.get('phone', None)
+        user_address = request.form.get('address', None)
+        if request.method == "POST":
+            if user_fullname:
+                if user_fullname.isspace():
+                    flash("You're not entering your fullname! Try again")
+                else:
+                    user_detail.fullname = user_fullname
+                    session['fullname'] = user_detail.fullname
+                    flash("Changed information sucess!")
+            elif user_phone:
+                if user_phone.isspace():
+                    flash("You're not entering your phone! Try again")
+                else:
+                    user_detail.phone = user_phone
+                    session['phone'] = user_detail.phone
+                    flash("Changed information sucess!")
+            elif user_address:
+                if user_address.isspace():
+                    flash("You're not entering your address! Try again")
+                else:
+                    user_detail.address = user_address
+                    session['address'] = user_detail.address
+                    flash("Changed information sucess!")
+            else:
+                current_psw = request.form.get('currentpassword')
+                new_psw = request.form.get('newpassword')
+                re_password = request.form.get('confirmnewpassword')
+                if current_psw:
+                    if re_password != new_psw:
+                        flash('New password not match', category='error')
+                    elif re_password == new_psw:
+                        flag = True
+                else:
+                    flag = False
+            db.session.commit()
+        if flag == True:
+            if check_password_hash(user_detail.password, current_psw) == False:
+                flash('Wrong current password', category='error')
+            else:
+                user_detail.password = generate_password_hash(new_psw)
+                flash('Change password sucess', 'sucess')
+            flag = False
+            db.session.commit()
+        return render_template('User.html', user_detail=user_detail)
