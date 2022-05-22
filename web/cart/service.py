@@ -2,12 +2,11 @@ import datetime
 
 from flask import session, request
 
-from ..models import Orderdetail, Product, Size, Order, db
-from ..ma import OrderdetailSchema, OrderSchema
+from ..models import Orderdetail, Product, Size, Order, db, User
+from ..ma import OrderdetailSchema, OrderSchema, UserSchema
 
 orderdetails_schema = OrderdetailSchema(many=True)
 orders_schema = OrderSchema(many=True)
-order_schema = OrderSchema()
 
 
 # lấy sp trong giỏ hàng đồng thời kiểm tra số lg sp trong kho có đáp ứng order ban đầu không.
@@ -20,7 +19,7 @@ def get_product_in_cart_service():
             if size.quantityInStock < od.quantityOrdered:
                 od.quantityOrdered = size.quantityInStock
         db.session.commit()
-        return order_schema.jsonify(order)
+        return orderdetails_schema.jsonify(order.order_details)
     else:
         return "Dont have any product in your cart. Wanna find something?"
 
@@ -76,15 +75,16 @@ def update_product_in_cart_service():
                 db.session.delete(order_detail[0])
                 db.session.commit()
                 return {"msg": "delete success"}
-                #return "delete success"
+                # return "delete success"
             else:
                 order_detail[0].quantityOrdered = qty
                 db.session.commit()
                 return {"msg": "update success"}
-                #return "update success"
+                # return "update success"
         else:
             return {"msg": "product not have in cart"}
-            #return "product not have in cart"
+            # return "product not have in cart"
+
 
 # xóa sp trong giỏ hàng
 def delete_product_in_cart_service():
@@ -109,8 +109,8 @@ def add_order_service():
         if order:
             if order.order_details:
                 order.status = 'Đặt hàng'
-                order.orderDate = datetime.datetime.now()
-                order.shippedDate = datetime.datetime.now() + datetime.timedelta(days=9)
+                order.orderDate = datetime.datetime.now()  # .strftime("%A %d. %B %Y")
+                order.shippedDate = (datetime.datetime.now() + datetime.timedelta(days=9))  # .strftime("%A %d. %B %Y")
                 for od in order.order_details:
                     size = Size.query.filter(Size.product_id == od.product_id, Size.size == od.size).first()
                     size.quantityInStock -= od.quantityOrdered
@@ -121,3 +121,8 @@ def add_order_service():
         else:
             return {"msg": "this order don't have in your orders"}
 
+
+# get user info
+def get_user_info_service():
+    user = User.query.filter(User.id == session['user']).first()
+    return UserSchema().jsonify(user)

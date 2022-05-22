@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, session, url_for, render_template
 from .service import get_product_in_cart_service, add_product_to_cart_service, get_order_by_status_service, \
-    update_product_in_cart_service, add_order_service, delete_product_in_cart_service
+    update_product_in_cart_service, add_order_service, delete_product_in_cart_service, get_user_info_service
 
 cart = Blueprint("cart", __name__)
 
@@ -24,6 +24,7 @@ def get_order_details():
 
 
 # get
+# get product in cart
 @cart.route("/cart", methods=["GET"])
 def get_product_in_cart():
     if 'user' not in session:
@@ -31,11 +32,20 @@ def get_product_in_cart():
     return get_product_in_cart_service()
 
 
+# get order
 @cart.route('/orders/<status>', methods=['GET'])
 def get_order_by_status(status):
     if 'user' not in session:
         return redirect(url_for('auth.login'))
     return get_order_by_status_service(status)
+
+
+# get user info
+@cart.route('/cart/user-info', methods=['GET'])
+def get_user_info():
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+    return get_user_info_service()
 
 
 # change

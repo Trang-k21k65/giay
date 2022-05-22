@@ -22,6 +22,7 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
 class OrderdetailSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Orderdetail
+        include_fk = True
 
     product = ma.Nested(ProductSchema)
 
