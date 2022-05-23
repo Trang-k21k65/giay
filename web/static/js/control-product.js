@@ -31,8 +31,8 @@ function load(id) {
             }
 
             document.getElementById('name').innerText = p.name;
-            let oldPrice = (p.sellPrice * (1 + p.tag / 100)).toFixed(0);
-            document.getElementById('old-price').innerHTML = '<del>' + oldPrice +'<ins>đ</ins></del>';
+            let oldPrice = (p.sellPrice / (100 - p.tag) / 10).toFixed(0) * 1000;
+            document.getElementById('old-price').innerHTML = '<del>' + oldPrice.toLocaleString("vi") +'<ins>đ</ins></del>';
             document.getElementById('price').innerHTML = p.sellPrice.toLocaleString("vi") + '<ins>đ</ins>';
 
             var size_inner_html = ''

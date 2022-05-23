@@ -70,21 +70,21 @@ def user():
                 else:
                     user_detail.fullname = user_fullname
                     session['fullname'] = user_detail.fullname
-                    flash("Changed information sucess!")
+                    flash("Changed information success!")
             elif user_phone:
                 if user_phone.isspace():
                     flash("You're not entering your phone! Try again")
                 else:
                     user_detail.phone = user_phone
                     session['phone'] = user_detail.phone
-                    flash("Changed information sucess!")
+                    flash("Changed information success!")
             elif user_address:
                 if user_address.isspace():
                     flash("You're not entering your address! Try again")
                 else:
                     user_detail.address = user_address
                     session['address'] = user_detail.address
-                    flash("Changed information sucess!")
+                    flash("Changed information success!")
             else:
                 current_psw = request.form.get('currentpassword')
                 new_psw = request.form.get('newpassword')
@@ -102,7 +102,7 @@ def user():
                 flash('Wrong current password', category='error')
             else:
                 user_detail.password = generate_password_hash(new_psw)
-                flash('Change password sucess', 'sucess')
+                flash('Change password success', 'success')
             flag = False
             db.session.commit()
         return render_template('User.html', user_detail=user_detail)
