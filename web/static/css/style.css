@@ -100,9 +100,12 @@ a {
   margin-left: 10px
 }
 .cart-item {
+    width: 1050px;
+    min-width:400px;
     display: flex;
     border: 1px solid;
     margin-bottom: 10px;
+    margin-left: 50px;
     padding: 0;
 }
 .cart-img {
@@ -166,6 +169,7 @@ a {
 }
 .sp {
     flex:1;
+    padding: 0 25px;
 }
 .btn-choice:hover {
     background-color:#30353a;
