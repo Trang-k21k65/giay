@@ -1,0 +1,24 @@
+{% extends 'Base.html' %}
+
+{% block js %}
+    <script src="../static/js/control_payment.js"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Banner -->
+    <div class="row align-content-start pb-5">
+        <div class="carousel-inner carousel-item active">
+            <img src="https://x9shop.vn/wp-content/uploads/2020/08/banner111-1400x474.jpg" class="d-block w-100" alt="banner">
+        </div>
+    </div>
+    <!--Message and choice-->
+    <div class="container">
+        <h3 style="text-align: center; margin-top:70px; margin-bottom: 70px;">ĐẶT HÀNG THÀNH CÔNG!</h3>
+        <div class="choice">
+            <a href="/" class="btn btn-choice">TRỞ VỀ TRANG CHỦ</a>
+            <div class="sp"></div>
+            <a href="/order_detail" class="btn btn-choice">THEO DÕI ĐƠN HÀNG</a>
+        </div>
+    </div>
+
+{% endblock %}

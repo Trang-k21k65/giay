@@ -125,4 +125,12 @@ def add_order_service():
 # get user info
 def get_user_info_service():
     user = User.query.filter(User.id == session['user']).first()
-    return UserSchema().jsonify(user)
+    if request.method == "POST":
+        user.fullname = request.form.get('fullname')
+        user.address = request.form.get('address')
+        user.phone = request.form.get('phone')
+        db.session.commit()
+        return {"msg": "update user info success"}
+    if request.method == 'GET':
+        return UserSchema().jsonify(user)
+    #return UserSchema().jsonify(user)

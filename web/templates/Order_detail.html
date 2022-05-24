@@ -1,0 +1,36 @@
+{% extends 'Base.html' %}
+
+{% block js %}
+    <script src="../static/js/control_order_detail.js"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Banner -->
+    <div class="row align-content-start pb-5">
+        <div class="carousel-inner carousel-item active">
+            <img src="https://x9shop.vn/wp-content/uploads/2020/08/banner111-1400x474.jpg" class="d-block w-100" alt="banner">
+        </div>
+    </div>
+    <div class="nav justify-content-center mt-1 mb-4 py-4 cart-menu" style="background-color:#eeeeee;">
+        <li class="nav-item active">
+            <a id="shipping" class="nav-link hvr-underline-from-left" style="font-size:24px;" onclick="loadItemDetail('Đang giao')"><b>Đang vận chuyển</b></a>
+        </li>
+        <li class="nav-item active">
+            <div style="width:120px;"></div>
+        </li>
+        <li class="nav-item active">
+            <a id="shipped" class="nav-link hvr-underline-from-left" style="font-size:24px;" onclick="loadItemDetail('Đã nhận')"><b>Đã nhận</b></a>
+        </li>
+    </div>
+    <!--Introduction of products-->
+    <div class="container item-border my-4">
+        <div id="details" class="row align-content-center row-cols-1"></div>
+    </div>
+    <div class="container pt-2 pb-4">
+    </div>
+    
+    <script>
+        loadItemDetail('Đang giao');
+    </script>
+    
+{% endblock %}
