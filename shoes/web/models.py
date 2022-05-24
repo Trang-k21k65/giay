@@ -16,14 +16,13 @@ class User(db.Model):
     orders = relationship('Order', backref='user', lazy=True)
 
     def __str__(self):
-        return self.username
+        return f'{self.id} {self.username} {self.fullname} {self.password} {self.address} {self.phone}'
 
     def set_psw(self, password):
         self.password = generate_password_hash(password=password)
 
     def check_psw(self, password):
         return check_password_hash(self.password, password)
-
 
 class Order(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)

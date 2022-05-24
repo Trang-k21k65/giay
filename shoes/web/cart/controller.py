@@ -1,44 +1,47 @@
 from flask import Blueprint, redirect, session, url_for, render_template
-from .service import get_product_in_cart_service, add_product_to_cart_service, get_order_by_status_service, \
-    update_product_in_cart_service, add_order_service, delete_product_in_cart_service
-
+from .service import get_product_in_cart_service, add_product_to_cart_service, get_order_by_status_service, update_product_in_cart_service,\
+    add_order_service, delete_product_in_cart_service, user_info_service
 cart = Blueprint("cart", __name__)
 
-
-# view
+#View
 @cart.route("/cart/products", methods=["GET"])
 def get_cart():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
     return render_template('Payment.html')
 
-
 @cart.route("/success", methods=["GET"])
 def get_success():
     return render_template('Success.html')
-
 
 @cart.route("/order_detail", methods=["GET"])
 def get_order_details():
     return render_template('Order_detail.html')
 
+#Get
 
-# get
+# get product in cart
 @cart.route("/cart", methods=["GET"])
 def get_product_in_cart():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
     return get_product_in_cart_service()
 
-
+# get order
 @cart.route('/orders/<status>', methods=['GET'])
 def get_order_by_status(status):
     if 'user' not in session:
         return redirect(url_for('auth.login'))
     return get_order_by_status_service(status)
 
+# user info
+@cart.route('/cart/user-info', methods=['GET', 'POST'])
+def get_user_info():
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+    return user_info_service()
 
-# change
+#Change
 @cart.route('/cart/update', methods=['POST'])
 def update_product_in_cart():
     if 'user' not in session:

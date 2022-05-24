@@ -19,9 +19,10 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
     sizes = ma.Nested(SizeSchema, many=True)
 
 
-class OrderdetailSchema(ma.SQLAlchemyAutoSchema):
+class OrderdetailsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Orderdetail
+        include_fk = True
 
     product = ma.Nested(ProductSchema)
 
@@ -30,4 +31,4 @@ class OrderSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Order
 
-    order_details = ma.Nested(OrderdetailSchema, many=True)
+    order_details = ma.Nested(OrderdetailsSchema, many=True)

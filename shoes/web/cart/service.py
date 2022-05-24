@@ -1,12 +1,11 @@
 import datetime
 from flask import session, request, redirect, flash, url_for, render_template
 
-from ..models import Orderdetail, Product, Size, Order, db
-from ..ma import OrderdetailSchema, OrderSchema
+from ..models import Orderdetail, Product, Size, Order, User, db
+from ..ma import OrderdetailsSchema, OrderSchema, UserSchema
 
-orderdetails_schema = OrderdetailSchema(many=True)
+orderdetails_schema = OrderdetailsSchema(many=True)
 orders_schema = OrderSchema(many=True)
-order_schema = OrderSchema()
 
 
 # lấy sp trong giỏ hàng đồng thời kiểm tra số lg sp trong kho có đáp ứng order ban đầu không.
@@ -19,7 +18,7 @@ def get_product_in_cart_service():
             if size.quantityInStock < od.quantityOrdered:
                 od.quantityOrdered = size.quantityInStock
         db.session.commit()
-        return order_schema.jsonify(order)
+        return orderdetails_schema.jsonify(order.order_details)
     else:
         return "Dont have any product in your cart. Wanna find something?"
 
@@ -108,8 +107,8 @@ def add_order_service():
         if order:
             if order.order_details:
                 order.status = 'Đặt hàng'
-                order.orderDate = datetime.datetime.now()
-                order.shippedDate = datetime.datetime.now() + datetime.timedelta(days=9)
+                order.orderDate = datetime.datetime.now()  # .strftime("%A %d. %B %Y")
+                order.shippedDate = (datetime.datetime.now() + datetime.timedelta(days=9))  # .strftime("%A %d. %B %Y")
                 for od in order.order_details:
                     size = Size.query.filter(Size.product_id == od.product_id, Size.size == od.size).first()
                     size.quantityInStock -= od.quantityOrdered
@@ -119,3 +118,15 @@ def add_order_service():
                 return {"msg:": "don't have any product in your cart"}
         else:
             return {"msg": "this order don't have in your orders"}
+
+# user info
+def user_info_service():
+    user = User.query.filter(User.id == session['user']).first()
+    if request.method == "POST":
+        user.fullname = request.form.get('fullname')
+        user.address = request.form.get('address')
+        user.phone = request.form.get('phone')
+        db.session.commit()
+        return {"msg" : "update user info success"}
+    if request.method == 'GET':
+        return UserSchema().jsonify(user)

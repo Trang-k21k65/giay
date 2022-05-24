@@ -72,13 +72,52 @@ a {
     box-shadow: none;
 }
 
+#message-box {
+    position: fixed;
+    top: 25%;
+    left: 30%;
+    width: 40%;
+    left: 35%;
+    width: 30%;
+    height: 30%;
+    text-align: center;
+    padding: 5% 0 15% 0;
+    background-color: rgba(50, 50, 50, 0.8);
+    font-size: 20px;
+    border-radius: 5px;
+}
 
 @media only screen and (max-width: 1000px){
+    #message-box {
+        left: 30%;
+        width: 40%;
+    }
     .img-item {
         width: 23%;
     }
-}
+} 
 
+.topLeft:before {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+  }
+  
+  .text-block {
+    position: absolute;
+    margin-top: 25px;
+    margin-right: 20px;
+    color: white;
+    padding: 0 5px 0 5px;
+  }
+  
+  .hidden-text {
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+  }
 .hvr {
   display: flex;
   flex-direction: row;
@@ -95,6 +134,9 @@ a {
 .hvr:after {
   margin-left: 10px
 }
+.img-item:hover {
+    border: solid orangered 2px;
+}
 .cart-item {
     width: 1050px;
     min-width:400px;
@@ -105,7 +147,7 @@ a {
     padding: 0;
 }
 .cart-img {
-    flex: 1;
+    flex: 4;
     min-width: 120px;
     min-height: 120px;
     padding: 5px 20px 5px 5px;
@@ -115,21 +157,22 @@ a {
     object-fit: cover;
 }
 .item-detail {
-    flex: 3;
+    flex: 11;
     text-align: left;
     font-size: 22px;
     padding-left: 20px;
     align-self: center;
 }
 .cart-quantity {
-    flex: 1;
+    flex: 5;
     align-self: center;
     padding-left: 10px;
 }
 .cart-price {
-    flex: 2;
-    text-align: center;
+    flex: 5;
+    text-align: right;
     align-self: center;
+    padding-right: 20px;
     font-size:22px;
 }
 .btn-choose {
@@ -166,6 +209,7 @@ a {
 .sp {
     flex:1;
     padding: 0 25px;
+    align-self: center;
 }
 .btn-choice:hover {
     background-color:#30353a;
