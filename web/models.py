@@ -27,14 +27,14 @@ class User(db.Model):
 
 class Order(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
-    status = Column(String(20), default='Đang mua')  # Gồm: Đang mua, Đặt hàng, Đang giao, Đã nhận, Hủy đơn
+    status = Column(String(20), default='Đang mua')  # Gồm: Đang mua, Đặt hàng, Xác nhận, Đang giao, Đã nhận
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
     orderDate = Column(DateTime)
     shippedDate = Column(DateTime)
     order_details = relationship('Orderdetail', backref='order', lazy=True)
 
     def __str__(self):
-        return f'order {self.id} - {self.user_id}'
+        return f'order {self.id} - ' + self.status
 
 
 class Product(db.Model):
@@ -54,7 +54,7 @@ class Product(db.Model):
     sizes = relationship('Size', backref='product', lazy=True)
 
     def __str__(self):
-        return self.id + " " + self.name
+        return self.name
 
 
 class Orderdetail(db.Model):
@@ -74,7 +74,7 @@ class Classify(db.Model):
     id = Column(String(10), primary_key=True)
 
     def __str__(self):
-        return self.id
+        return f'{self.id}'
 
 
 class Size(db.Model):
