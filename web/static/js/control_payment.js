@@ -1,4 +1,3 @@
-
 function loadItems() {
     document.getElementById('item').innerHTML = '';
     fetch("/cart")
@@ -10,16 +9,16 @@ function loadItems() {
             let sum = 0;
             for (let i of cart) {
                 sum += i.quantityOrdered * i.sellPrice;
-                s +='<div class="cart-item"><div class="cart-img">' +
+                s += '<div class="cart-item"><div class="cart-img">' +
                     '<img class="card-img" src="' + i.product.image.split('\n')[0] + '" alt="' + i.product.id + ' width:"100%;"/></div>' +
-                    '<div class="item-detail"><input type="hidden" id= "productId" name="product_id" value="{{' + i.product.id + '}}"><p>'+ i.product.name +
+                    '<div class="item-detail"><input type="hidden" id= "productId" name="product_id" value="{{' + i.product.id + '}}"><p>' + i.product.name +
                     '<br><input id= "productSize" type="hidden" name="size" value"{{' + i.size + '}}">Size: ' + i.size +
                     '<br>Giá thành: ' + i.sellPrice.toLocaleString("vi") + 'đ</p></div>' +
                     '<div class="cart-quantity"><div class="row gx-0">' +
                     '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '-"' + 'style="width: 100%;" onclick="clickChoose(this.id)">-</button></div>' +
                     '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%; font-size: 20px" id="' + i.product.id + i.size + '-quantity" name="qty">' + i.quantityOrdered + '</button></div>' +
                     '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '+"' + 'style="width: 100%;" onclick="clickChoose(this.id)">+</button></div>' +
-                    '</div></div><div class="cart-price"><p id="' + i.product.id + i.size + '-price">' + (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + 'đ</p></div>' +
+                    '</div></div><div class="cart-price"><p id="' + i.product.id + i.size + '-price">' + (i.quantityOrdered * i.sellPrice).toLocaleString("vi") + 'đ</p></div>' +
                     '<div class="sp"><div class="row gx-0"><div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '" onclick="deleteProductFromCart(this.id)">Xóa</button></div></div></div></div>';
             }
             if (sum == 0) {
@@ -30,7 +29,7 @@ function loadItems() {
                 document.getElementById('sum').innerHTML = sum.toLocaleString("vi") + "đ";
                 document.getElementById('fee').innerHTML = '15.000đ';
                 let f = document.getElementById('fee').innerHTML;
-                document.getElementById('totalprice').innerHTML = (sum + parseFloat(f)*1000).toLocaleString("vi") + "đ";
+                document.getElementById('totalprice').innerHTML = (sum + parseFloat(f) * 1000).toLocaleString("vi") + "đ";
             }
             document.getElementById('item').innerHTML = s;
         })
@@ -85,6 +84,7 @@ function clickChoose(type) {
                                 quantity++;
                             } else {
                                 quantity = j.quantityInStock;
+
                             }
                             break;
                         }

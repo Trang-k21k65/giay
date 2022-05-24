@@ -111,6 +111,7 @@ def add_order_service():
                 order.status = 'Đặt hàng'
                 order.orderDate = datetime.datetime.now()  # .strftime("%A %d. %B %Y")
                 order.shippedDate = (datetime.datetime.now() + datetime.timedelta(days=9))  # .strftime("%A %d. %B %Y")
+                db.session.commit()
                 for od in order.order_details:
                     size = Size.query.filter(Size.product_id == od.product_id, Size.size == od.size).first()
                     size.quantityInStock -= od.quantityOrdered
@@ -133,4 +134,3 @@ def get_user_info_service():
         return {"msg": "update user info success"}
     if request.method == 'GET':
         return UserSchema().jsonify(user)
-    #return UserSchema().jsonify(user)
