@@ -3,9 +3,15 @@ function loadItemDetail(status) {
     if (status == 'Đang giao') {
         document.getElementById('shipping').style.borderBottom = '2.5pt solid black';
         document.getElementById('shipped').style.borderBottom = '0';
+        document.getElementById('ordered').style.borderBottom = '0';
     } else if (status == 'Đã nhận') {
         document.getElementById('shipped').style.borderBottom = '2.5pt solid black';
         document.getElementById('shipping').style.borderBottom = '0';
+        document.getElementById('ordered').style.borderBottom = '0';
+    } else if (status == 'Đặt hàng') {
+        document.getElementById('ordered').style.borderBottom = '2.5pt solid black';
+        document.getElementById('shipping').style.borderBottom = '0';
+        document.getElementById('shipped').style.borderBottom = '0';
     }
     fetch("/orders/" + status)
         .then(function (response) {
@@ -28,6 +34,8 @@ function loadItemDetail(status) {
                     s +='<div class="cart-item" style="border:none;text-decoration:underline;"><div class="sp">Thời gian giao hàng dự kiến</div><div class="sp" style="text-align: right">' + j.shippedDate + '</div></div></div>';
                 } else if (status == 'Đã nhận') {
                     s +='<div class="cart-item" style="border:none;text-decoration:underline;"><div class="sp">Thời gian nhận hàng</div><div class="sp" style="text-align: right">' + j.shippedDate + '</div></div></div>';
+                } else if (status == 'Đặt hàng') {
+                    s +='<div class="cart-item" style="border:none;text-decoration:underline;"><div class="sp">Thời gian giao hàng dự kiến</div><div class="sp" style="text-align: right">' + j.shippedDate + '</div></div></div>';
                 }
             }
             document.getElementById('details').innerHTML = s;
