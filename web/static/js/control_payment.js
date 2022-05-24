@@ -17,7 +17,7 @@ function loadItems() {
                     '<br>Giá thành: ' + i.sellPrice.toLocaleString("vi") + 'đ</p></div>' +
                     '<div class="cart-quantity"><div class="row gx-0">' +
                     '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '-"' + 'style="width: 100%;" onclick="clickChoose(this.id)">-</button></div>' +
-                    '<div class="col border"><button class="btn btn-light" type="button" style="width: 100%; font-size: 20px" id="' + i.product.id + i.size + '-quantity" name="qty">' + i.quantityOrdered + '</button></div>' +
+                    '<div class="col border"><input class="btn btn-light" style="width: 100%; font-size: 20px" id="' + i.product.id + i.size + '-quantity" name="qty" value="' + i.quantityOrdered +  '" onkeyup="changeQuantity(this.id)"></div>' +
                     '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '+"' + 'style="width: 100%;" onclick="clickChoose(this.id)">+</button></div>' +
                     '</div></div><div class="cart-price"><p id="' + i.product.id + i.size + '-price">' + (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + 'đ</p></div>' +
                     '<div class="sp"><div class="row gx-0"><div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '" onclick="deleteProductFromCart(this.id)">Xóa</button></div></div></div></div>';
@@ -61,7 +61,7 @@ function clickChoose(type) {
         .then(function (cart) {
             for (let i of cart) {
                 if ((i.product.id + i.size + '-') == type) {
-                    let quantity = document.getElementById(i.product.id + i.size + '-quantity').innerHTML;
+                    let quantity = document.getElementById(i.product.id + i.size + '-quantity').value;
                     quantity = parseInt(quantity);
                     if (quantity > 1) {
                         quantity--;
@@ -77,19 +77,49 @@ function clickChoose(type) {
                     loadItems();
                     break;
                 } else if ((i.product.id + i.size + '+') == type) {
-                    let quantity = document.getElementById(i.product.id + i.size + '-quantity').innerHTML;
+                    let quantity = document.getElementById(i.product.id + i.size + '-quantity').value;
                     quantity = parseInt(quantity);
                     for (let j of i.product.sizes) {
                         if (j.size == i.size) {
-                            if (quantity + 1 < j.quantityInStock) {
+                            if (quantity < j.quantityInStock) {
                                 quantity++;
                             } else {
+                                alert("Chỉ còn " + j.quantityInStock + " sản phẩm trong kho");
                                 quantity = j.quantityInStock;
                             }
                             break;
                         }
                     }
                     updateCart(i.product.id, i.size, quantity);
+                    loadItems();
+                    break;
+                }
+            }
+        })
+}
+
+function changeQuantity(id) {
+    fetch('/cart')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (cart) {
+            for (let p of cart) {
+                if (p.product.id + p.size + '-quantity' == id) {
+                    let quantity = document.getElementById(id).value;
+                    let quantityOfSize = 0;
+                    for (let s of p.product.sizes) {
+                        if (s.size == p.size) {
+                            quantityOfSize = s.quantityInStock;
+                            break;
+                        }
+                    }
+                    if (quantity > quantityOfSize) {
+                        alert("Chỉ còn " + quantityOfSize + " sản phẩm trong kho")
+                        document.getElementById(id).value = quantityOfSize;
+                        quantity = quantityOfSize;
+                    }
+                    updateCart(p.product.id, p.size, quantity);
                     loadItems();
                     break;
                 }

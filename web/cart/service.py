@@ -133,4 +133,3 @@ def get_user_info_service():
         return {"msg": "update user info success"}
     if request.method == 'GET':
         return UserSchema().jsonify(user)
-    #return UserSchema().jsonify(user)

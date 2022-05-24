@@ -41,7 +41,7 @@ def get_order_by_status(status):
 
 
 # get user info
-@cart.route('/cart/user-info', methods=['GET'])
+@cart.route('/cart/user-info', methods=['GET', 'POST'])
 def get_user_info():
     if 'user' not in session:
         return redirect(url_for('auth.login'))

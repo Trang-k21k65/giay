@@ -104,8 +104,8 @@
                 })
                 .then(function (cart) {
                     addOrder(cart[0].order_id);
+                    window.location.href = "/success";
                 })
-                window.location.href = "/success";
             }
         })
     </script>

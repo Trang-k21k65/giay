@@ -16,7 +16,7 @@ class User(db.Model):
     orders = relationship('Order', backref='user', lazy=True)
 
     def __str__(self):
-        return f'{self.id} {self.username} {self.fullname} {self.password} {self.address} {self.phone}'
+        return f'{self.id} {self.username} {self.fullname} {self.password} {self.address} {self.phone} {self.admin_role}'
 
     def set_psw(self, password):
         self.password = generate_password_hash(password=password)
