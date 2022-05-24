@@ -2,6 +2,7 @@
 
 {% block js %}
     <script src="../static/js/control_payment.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -13,21 +14,22 @@
     </div>
     <!--Introduction of products-->
     <div class="container item-border my-4">
-        <div class="row gx-0 row-cols-4 mb-3" style="font-size: 20px; border-bottom: 2px solid #cccccc">
+        <!--<div class="row gx-0 row-cols-4 mb-3" style="font-size: 20px; border-bottom: 2px solid #cccccc">
             <div class="col-3 ps-5">
                 <b>Products</b>
             </div>
             <div class="col-4 ps-2">
                 <b>Details</b>
             </div>
-            <div class="col-2 ps-5">
+            <div class="col-2 ps-4">
                 <b>Quantity</b>
             </div>
             <div class="col-3 ps-5">
                 <b>Total Price</b>
             </div>
-        </div>
+        </div>-->
         <div id="item" class="row align-content-center row-cols-1">
+            <input type="hidden" name="order-id">
         </div>
     </div>
     <!--Details of payment-->
@@ -39,19 +41,19 @@
                     <tr>
                         <th>Họ và tên</th>
                         <td>
-                            <input type="text" style="border:0px; width:100%;" placeholder="Họ và tên" id="name">
+                            <input class="bg-light" type="text" style="border:0px; width:100%;" placeholder="Họ và tên" id="fullName" name="fullname">
                         </td>
                     </tr>
                     <tr>
                         <th>Số điện thoại</th>
                         <td>
-                            <input type="text" style="border:0px; width:100%;" placeholder="Số điện thoại" id="phone">
+                            <input class="bg-light" type="text" style="border:0px; width:100%;" placeholder="Số điện thoại" id="phoneNumber" name="phone">
                         </td>
                     </tr>
                     <tr>
                         <th>Địa chỉ</th>
                         <td>
-                            <input type="text" style="border:0px; width:100%;" placeholder="Số 4, ngõ 20, Láng Thượng, Đống Đa, HN" id="address">
+                            <input class="bg-light" type="text" style="border:0px; width:100%;" placeholder="Số 4, ngõ 20, Láng Thượng, Đống Đa, HN" id="address" name="address">
                         </td>
                     </tr>
                 </table>
@@ -65,7 +67,7 @@
                     </tr>
                     <tr>
                         <th>Phí Ship</th>
-                        <td id="fee" style="text-align: right;">15.000đ</td>
+                        <td id="fee" style="text-align: right;"></td>
                     </tr>
                     <tr>
                         <th>Tổng Cộng</th>
@@ -73,17 +75,39 @@
                     </tr>
                 </table>
                 <div style="text-align: center">
-                    <a href="http://127.0.0.1:5050/success" class="btn btn-choose">THANH TOÁN</a>
+                    <button type="button" id="add-order" class="btn btn-choose">ĐẶT HÀNG</button>
                 </div>
                 <div style="text-align: center">
-                    <a href="http://127.0.0.1:5050" class="btn btn-choose">MUA THÊM SẢN PHẨM KHÁC</a>
+                    <a href="/" class="btn btn-choose">MUA THÊM SẢN PHẨM KHÁC</a>
                 </div>
                 <br>
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
         loadItems();
+        loadInfo();
+        document.querySelector("#add-order").addEventListener("click", function () {
+            const name = document.getElementById('fullName');
+            const phone = document.getElementById('phoneNumber');
+            const add = document.getElementById('address');
+            if (!name.value || !phone.value || !add.value) {
+                alert("Bạn chưa nhập thông tin cá nhân. Vui lòng cung cấp thông tin cần thiết!");
+            } else if (document.getElementById('totalprice').innerHTML == '0') {
+                alert("Bạn chưa có sản phẩm nào trong giỏ hàng. Bắt đầu mua sắm ngay đi nào!");
+                window.location.href = "/";
+            } else {
+                getUserInfo(name.value, add.value, phone.value);
+                fetch("/cart")
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (cart) {
+                    addOrder(cart[0].order_id);
+                })
+                window.location.href = "/success";
+            }
+        })
     </script>
 
  {% endblock %}

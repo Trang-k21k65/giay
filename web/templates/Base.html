@@ -58,8 +58,8 @@
         </div>
         <div>
             <button class="btn btn-light position-relative">
-                <i class="fa fa-shopping-cart" style="font-size: 24px"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px">1</span>
+                <a href="/cart/products"><i class="fa fa-shopping-cart" style="font-size: 24px; color: black"></i></a>
+                <span id="number-products" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px"></span>
             </button>
 
             <button class="btn btn-light" type="button" id="user" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,7 +67,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sort">
                 <li><a class="dropdown-item" href="/user">Profile</a></li>
-                <li><a class="dropdown-item" href="/">Đơn hàng</a></li>
+                <li><a class="dropdown-item" href="/order_detail">Đơn hàng</a></li>
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
         </div>
@@ -110,5 +110,14 @@
             </div>
         </div>
     </footer>
+    <script>
+        fetch("/cart")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (cart) {
+                document.getElementById('number-products').innerText = cart.length;
+            })
+    </script>
 </body>
 </html>
