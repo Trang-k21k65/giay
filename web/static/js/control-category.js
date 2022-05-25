@@ -1,4 +1,4 @@
-var classic = ['man', 'woman', 'sport', 'fashion'];
+var classic = ['all','man', 'woman', 'sport', 'fashion'];
 
 function loadProductByClaasify(classify) {
     document.getElementById(classify).style.borderBottom = '2.5pt solid black';
@@ -27,12 +27,15 @@ function loadProductByBrand(brand) {
         })
 }
 
-function loadProductByType(type) {;
-    if (classic.includes(type)) {
-        loadProductByClaasify(type);
-    } else {
-        loadProductByBrand(type);
-    }
+function loadProductByType(type) {
+    if (type == 'all') {
+        loadProducts();
+        document.getElementById('all').style.borderBottom = '2.5pt solid black';
+    } else if (classic.includes(type)) {
+            loadProductByClaasify(type);
+        } else {
+            loadProductByBrand(type);
+        }
 }
 
 function loadProducts() {
@@ -41,19 +44,7 @@ function loadProducts() {
             return response.json();
         })
         .then(function (products) {
-            var ht = '';
-            for (let product of products) {
-                ht += '<div class="col">' +
-                    '<a href="/products/' + product.id + '" class="text-decoration-none text-black">' +
-                    '<img class="card-img-top mt-3" src="'+ product.image + '" alt="' + product.id + '" style="width:100%">' +
-                    '<div class="text-center">' +
-                    '<h4>' + product.name + '</h4>' +
-                    '<h5>' + product.sellPrice.toLocaleString("vi") + '<ins>đ</ins></h5>' +
-                    '</div>' +
-                    '</a>'+
-                    '</div>';
-            }
-            document.getElementById('products').innerHTML = ht;
+            document.getElementById('products').innerHTML = innerHTML(products);
         })
         .catch(function (err) {
             console.log('error');
@@ -98,10 +89,12 @@ function clickSort(type){
     if (name != '') {
         url = "/products/search/" + name;
     } else {
-        if (classic.includes(classify))
-            url = "/products/classify/" + classify;
-        else
-            url = "/products/brand/" + classify;
+        if (classify == 'all') {
+            url = "/products";
+        } else if (classic.includes(classify))
+                url = "/products/classify/" + classify;
+            else
+                url = "/products/brand/" + classify;
     }
     fetch(url)
         .then(function (response) {

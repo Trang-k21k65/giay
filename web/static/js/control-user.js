@@ -1,19 +1,19 @@
 function clickEdit(type) {
-    document.getElementById(type).style.display = 'none';
-    document.getElementById('edit' + type).style.display = 'block';
+    document.getElementById(type).hidden = 'hidden';
+    document.getElementById('edit' + type).removeAttribute('hidden');
 }
 
 function closeEdit(type) {
-    document.getElementById(type).style.display = 'block';
-    document.getElementById('edit' + type).style.display = 'none';
+    document.getElementById(type).removeAttribute('hidden');
+    document.getElementById('edit' + type).hidden = 'hidden';
 }
 
 function clickChangePsw() {
-    document.getElementById('editpsw').style.display = 'block';
+    document.getElementById('editpsw').removeAttribute('hidden');
 }
 
 function closeChangePsw() {
-    document.getElementById('editpsw').style.display = 'none';
+    document.getElementById('editpsw').hidden = 'hidden';
 }
 
 function savePsw() {

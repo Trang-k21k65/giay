@@ -21,7 +21,7 @@ def get_product_in_cart_service():
         db.session.commit()
         return orderdetails_schema.jsonify(order.order_details)
     else:
-        return "Dont have any product in your cart. Wanna find something?"
+        return {'msg': 'null'}
 
 
 # Lấy ra các đơn đặt hàng, đang giao, đã nhận

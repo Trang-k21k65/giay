@@ -103,8 +103,13 @@
                     return response.json();
                 })
                 .then(function (cart) {
-                    addOrder(cart[0].order_id);
-                    window.location.href = "/success";
+                    if (cart.msg == 'null') {
+                        alert("Bạn chưa có sản phẩm nào trong giỏ hàng. Bắt đầu mua sắm ngay đi nào!");
+                    } else {
+                        addOrder(cart[0].order_id);
+                        window.location.href = "/success";
+                    }
+
                 })
             }
         })

@@ -22,6 +22,9 @@
         <div id="mynavbar" class="collapse navbar-collapse">
             <ul class="navbar-nav m-lg-auto">
                 <li class="nav-item active">
+                    <a href="/home/all" id="all" class="nav-link ms-5 hvr-underline-from-left" onclick="clickNavItem('All')">All</a>
+                </li>
+                <li class="nav-item active">
                     <a href="/home/man" id="man" class="nav-link ms-5 hvr-underline-from-left" onclick="clickNavItem('Man')">Man</a>
                 </li>
                 <li class="nav-item active">
@@ -116,7 +119,11 @@
                 return response.json();
             })
             .then(function (cart) {
-                document.getElementById('number-products').innerText = cart.length;
+                if (cart.msg == 'null') {
+                    document.getElementById('number-products').innerText = '0';
+                } else {
+                    document.getElementById('number-products').innerText = cart.length;
+                }
             })
     </script>
 </body>

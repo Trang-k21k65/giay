@@ -9,7 +9,7 @@
     <div id="content" class="container bg-light shadow-lg" style="margin-top: 100px; max-width: 960px">
         <div>
             <img src="https://cdn-icons-png.flaticon.com/512/147/147140.png" alt="Image user" class="rounded-circle img-thumbnail w-25 d-block mx-auto mt-3">
-            <h2 class="text-center mb-5">{{ user_detail.username}}</h2>
+            <h2 class="text-center mb-5">{{ user_detail.username }}</h2>
             {%- for category, message in get_flashed_messages(with_categories = true) %}
                 <div class = "alert alert-warning">
                     {{ message }}
@@ -23,7 +23,7 @@
                     <i class="fa fa-edit" style="font-size: 24px"></i>
                 </button>
 
-                <div id="editfullname" style="display: none">
+                <div id="editfullname" hidden>
                     <hr>
                     <form action="" method="post" class="container w-75" style="background-color: darkgray">
                         <div class="row pt-3">
@@ -47,7 +47,7 @@
                     <i class="fa fa-edit" style="font-size: 24px"></i>
                 </button>
 
-                <div id="editphone" style="display: none">
+                <div id="editphone" hidden>
                     <hr>
                     <form action="" method="post" class="container w-75" style="background-color: darkgray">
                         <div class="row pt-3">
@@ -72,7 +72,7 @@
                     <i class="fa fa-edit" style="font-size: 24px"></i>
                 </button>
 
-                <div id="editaddress" style="display: none">
+                <div id="editaddress" hidden>
                     <hr>
                     <form action="" method="post" class="container w-75" style="background-color: darkgray">
                         <div class="row pt-3">
@@ -94,7 +94,7 @@
                 <button class="border-0 bg-light float-end" onclick="clickChangePsw()">
                     <i class="fa fa-edit" style="font-size: 24px"></i>
                 </button>
-                <div id="editpsw" style="display: none">
+                <div id="editpsw" hidden>
                     <hr>
                     <form method="post" class="container w-75" style="background-color: darkgray">
                         <div class="row pt-3">
@@ -123,8 +123,7 @@
                 <script hidden>
                     showButton('{{ user_detail.admin_role }}')
                 </script>
-                <button class="btn btn-primary mb-2"><a href="/admin/order" class="text-white">Quản lý đơn hàng</a></button>
-                <button class="btn btn-primary mb-2"><a href="/admin/product" class="text-white">Quản lý sản phẩm</a></button>
+                <button class="btn btn-primary mb-2"><a href="/admin" class="text-white">Quản lý chi tiết</a></button>
             </div>
         </div>
     </div>

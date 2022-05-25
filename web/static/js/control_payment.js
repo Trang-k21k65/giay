@@ -17,7 +17,7 @@ function loadItems() {
                     '<br>Giá thành: ' + i.sellPrice.toLocaleString("vi") + 'đ</p></div>' +
                     '<div class="cart-quantity"><div class="row gx-0">' +
                     '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '-"' + 'style="width: 100%;" onclick="clickChoose(this.id)">-</button></div>' +
-                    '<div class="col border"><input class="btn btn-light" style="width: 100%; font-size: 20px" id="' + i.product.id + i.size + '-quantity" name="qty" value="' + i.quantityOrdered +  '" onkeyup="changeQuantity(this.id)"></div>' +
+                    '<div class="col border"><input class="btn btn-light" style="width: 100%; font-size: 20px" id="' + i.product.id + i.size + '-quantity" name="qty" value="' + i.quantityOrdered +  '" onkeypress="changeQuantity(this.id)"></div>' +
                     '<div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '+"' + 'style="width: 100%;" onclick="clickChoose(this.id)">+</button></div>' +
                     '</div></div><div class="cart-price"><p id="' + i.product.id + i.size + '-price">' + (i.quantityOrdered*i.sellPrice).toLocaleString("vi") + 'đ</p></div>' +
                     '<div class="sp"><div class="row gx-0"><div class="col border"><button class="btn btn-light" type="button" id="' + i.product.id + i.size + '" onclick="deleteProductFromCart(this.id)">Xóa</button></div></div></div></div>';
@@ -30,7 +30,7 @@ function loadItems() {
                 document.getElementById('sum').innerHTML = sum.toLocaleString("vi") + "đ";
                 document.getElementById('fee').innerHTML = '15.000đ';
                 let f = document.getElementById('fee').innerHTML;
-                document.getElementById('totalprice').innerHTML = (sum + parseFloat(f)*1000).toLocaleString("vi") + "đ";
+                document.getElementById('totalprice').innerHTML = (sum + parseFloat(f) * 1000).toLocaleString("vi") + "đ";
             }
             document.getElementById('item').innerHTML = s;
         })
@@ -162,8 +162,11 @@ function deleteProductFromCart(p) {
         .then(function (cart) {
             for (let i of cart) {
                 if ((i.product.id + i.size) == p) {
-                    deleteProduct(i.product.id, i.size);
-                    loadItems();
+                    let ans = window.confirm("Bạn có muốn xóa sản phẩm này không?");
+                    if (ans) {
+                        deleteProduct(i.product.id, i.size);
+                        loadItems();
+                    }
                     break;
                 }
             }
