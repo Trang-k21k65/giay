@@ -3,10 +3,9 @@ from datetime import datetime
 from flask import session
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.model import typefmt
-from wtforms.validators import AnyOf
 
-from web.models import User, Order, Orderdetail, Product, Size, Classify, db
-from .extensions import admin
+from web.extensions.models import User, Order, Orderdetail, Product, Size, Classify, db
+from web.extensions.__init__ import admin
 
 
 # thay đổi dạng hiển thị của date
@@ -49,6 +48,10 @@ class OrderView(AdminView):
     can_create = False
     can_delete = False
     column_default_sort = ('user_id', True)
+    form_choices = {
+        'status': [('Đang mua', 'Đang mua'), ('Đặt hàng', 'Đặt hàng'), ('Xác nhận', 'Xác nhận'),
+                   ('Đang giao', 'Đang giao'), ('Đã nhận', 'Đã nhận')]
+    }
 
 
 admin.add_view(OrderView(Order, db.session))
@@ -79,6 +82,9 @@ class SizeView(AdminView):
     column_list = ('product', 'size', 'quantityInStock')
     form_columns = column_list
     column_searchable_list = ('product.name',)
+    form_choices = {
+        'size': [(36, 36), (37, 37), (38, 38), (39, 39), (40, 40), (41, 41), (42, 42)]
+    }
 
 
 admin.add_view(SizeView(Size, db.session))

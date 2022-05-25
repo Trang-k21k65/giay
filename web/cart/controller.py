@@ -10,21 +10,20 @@ cart = Blueprint("cart", __name__)
 def get_cart():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
-    return render_template('Payment.html')
+    return render_template('cart/Payment.html')
 
 
 @cart.route("/success", methods=["GET"])
 def get_success():
-    return render_template('Success.html')
+    return render_template('cart/Success.html')
 
 
 @cart.route("/order_detail", methods=["GET"])
 def get_order_details():
-    return render_template('Order_detail.html')
+    return render_template('cart/Order_detail.html')
 
 
 # get
-# get product in cart
 @cart.route("/cart", methods=["GET"])
 def get_product_in_cart():
     if 'user' not in session:
@@ -32,7 +31,6 @@ def get_product_in_cart():
     return get_product_in_cart_service()
 
 
-# get order
 @cart.route('/orders/<status>', methods=['GET'])
 def get_order_by_status(status):
     if 'user' not in session:
@@ -40,7 +38,6 @@ def get_order_by_status(status):
     return get_order_by_status_service(status)
 
 
-# get user info
 @cart.route('/cart/user-info', methods=['GET', 'POST'])
 def get_user_info():
     if 'user' not in session:
@@ -53,19 +50,17 @@ def get_user_info():
 def update_product_in_cart():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
-    msg = update_product_in_cart_service()
-    return get_product_in_cart_service(), msg
+    return update_product_in_cart_service()
 
 
 @cart.route('/cart/delete', methods=['POST'])
 def delete_product_in_cart():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
-    msg = delete_product_in_cart_service()
-    return get_product_in_cart_service(), msg
+    return delete_product_in_cart_service()
 
 
-# Add
+# add
 @cart.route('/addcart', methods=['POST'])
 def add_product_to_cart():
     if 'user' not in session:

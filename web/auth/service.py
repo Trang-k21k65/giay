@@ -1,11 +1,9 @@
 from flask import render_template, request, redirect, url_for, session, flash
-from ..models import User, db
-from .controller import auth
+from web.extensions.models import User, db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-@auth.route('/signup', methods=["POST", 'GET'])
-def signup():
+def signup_service():
     if request.method == "POST":
         username = request.form['user']
         password = request.form['psw']
@@ -23,11 +21,10 @@ def signup():
                 db.session.commit()
                 print("User created!")
                 return redirect(url_for('auth.login'))
-    return render_template('SignUp.html')
+    return render_template('auth/SignUp.html')
 
 
-@auth.route('/login', methods=["POST", "GET"])
-def login():
+def login_service():
     if request.method == 'POST':
         username = request.form['user']
         password = request.form['psw']
@@ -41,18 +38,16 @@ def login():
             return redirect(url_for('home.homepage'))
     if 'user' in session:
         return redirect(url_for('home.homepage'))
-    return render_template('Login.html')
+    return render_template('auth/Login.html')
 
 
-@auth.route('/logout')
-def logout():
+def logout_service():
     session.pop('user', None)
     session.pop('admin', None)
     return redirect(url_for('auth.login'))
 
 
-@auth.route('/user', methods=["POST", "GET"])
-def user():
+def user_service():
     if 'user' in session:
         user_id = session.get('user')
         user_detail = User.query.filter_by(id=user_id).first()
@@ -105,4 +100,4 @@ def user():
                 flash('Change password success', 'success')
             flag = False
             db.session.commit()
-        return render_template('User.html', user_detail=user_detail)
+        return render_template('auth/User.html', user_detail=user_detail)

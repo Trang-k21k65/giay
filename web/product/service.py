@@ -1,5 +1,5 @@
-from ..models import Product, Classify
-from ..ma import ProductSchema
+from web.extensions.models import Product, Classify
+from web.extensions.ma import ProductSchema
 
 products_schema = ProductSchema(many=True)
 

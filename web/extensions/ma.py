@@ -1,5 +1,5 @@
-from .extensions import ma
-from .models import Product, Size, User, Order, Orderdetail
+from web.extensions.__init__ import ma
+from web.extensions.models import Product, Size, User, Order, Orderdetail
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):

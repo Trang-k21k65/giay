@@ -1,8 +1,8 @@
 from flask import Flask
 import os
-from web.models import db
-from web.admin import admin
-from web.ma import ma
+from web.extensions.models import db
+from web.extensions.admin import admin
+from web.extensions.ma import ma
 
 
 def create_db(app):

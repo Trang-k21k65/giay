@@ -1,4 +1,4 @@
-from ..models import Product
+from web.extensions.models import Product
 from web.product.service import products_schema
 
 
