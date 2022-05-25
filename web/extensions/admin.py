@@ -71,8 +71,21 @@ admin.add_view(OrderdetailView(Orderdetail, db.session))
 
 class ProductView(AdminView):
     column_searchable_list = ('name', 'brand')
+    page_size = 10
     form_columns = ('id', 'name', 'brand', 'buyPrice', 'sellPrice', 'tag',
                     'importDate', 'description', 'image', 'consume', 'active')
+    form_widget_args = {
+        'description': {'style': 'height: 180px'},
+        'image': {'style': 'height: 100px'}
+    }
+
+
+    def description_formatter(view, context, Product, name):
+        return Product.description[:30] + '...'
+
+    column_formatters = {
+        'description': description_formatter,
+    }
 
 
 admin.add_view(ProductView(Product, db.session))
