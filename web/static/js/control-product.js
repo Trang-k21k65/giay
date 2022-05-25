@@ -9,11 +9,20 @@ function clickMinus() {
 
 function clickPlus() {
     let quantityInStock = parseInt(document.getElementById('quantityInStock').innerText.split(' ')[0], 10);
-
     if (document.getElementById("number").value < quantityInStock)
         document.getElementById("number").value++;
+    else
+        alert("Chỉ còn " + quantityInStock + " sản phẩm trong kho");
 }
 
+function changeQuantity() {
+    let quantityInStock = parseInt(document.getElementById('quantityInStock').innerText.split(' ')[0], 10);
+    if (document.getElementById("number").value > quantityInStock) {
+        alert("Chỉ còn " + quantityInStock + " sản phẩm trong kho");
+        document.getElementById("number").value = quantityInStock;
+    }
+
+}
 
 function load(id) {
     fetch("/products/details/" + id)
@@ -36,14 +45,14 @@ function load(id) {
             document.getElementById('price').innerHTML = p.sellPrice.toLocaleString("vi") + '<ins>đ</ins>';
 
             var size_inner_html = ''
-            let total = 0;
+            let quantity;
             for (let s of p.sizes) {
                 size_inner_html += '<input checked="checked" type="radio" id="size' + s.size + '" class="btn-check" name="size" value="' + s.size + '" onclick="clickSize(' + s.size + ')">' +
                                     '<label class="btn btn-outline-dark my-1 me-1" for="size' + s.size + '">' + s.size + '</label>';
-                total += s.quantityInStock;
+                quantity = s.quantityInStock;
             }
             document.getElementById('size').innerHTML = size_inner_html;
-            document.getElementById('quantityInStock').innerText = total + ' sản phẩm có sẵn';
+            document.getElementById('quantityInStock').innerText = quantity + ' sản phẩm có sẵn';
 
             let description = p.description.split('\n');
             let description_inner_html = '';

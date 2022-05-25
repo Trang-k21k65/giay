@@ -26,7 +26,6 @@ function savePsw() {
 
 function showButton(adminRole) {
     if (adminRole == 'False') {
-        alert(adminRole)
         document.getElementById('admin').hidden = 'hidden';
     }
 }
